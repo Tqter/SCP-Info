@@ -40,4 +40,4 @@ async def scp(ctx, scp_number):
     await ctx.send(embed=embed_scp)
 
 
-bot.run('ODE4Mjk0NTYyNjc3NTg4MDA5.YEV-Mg.9sU0HkbuQWKhGUxfS2N2eEIcCCA')
+bot.run('token')
