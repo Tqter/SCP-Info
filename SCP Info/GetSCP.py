@@ -71,7 +71,6 @@ def GetSCP(scp_number: int):
         x = StrikeOuts(x)
         parsed.append(x)
     parsed = ("\n".join(parsed)).split("&#171;")
-    del parsed[1]
     return "\n".join(parsed)
 
 
