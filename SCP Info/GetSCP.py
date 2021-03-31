@@ -47,14 +47,7 @@ def StrikeOuts(html: str):
     return strikes
 
 
-def GetSCP(scp_number: int):
-    if 100 > scp_number >= 10:
-        scp_number = f"0{scp_number}"
-    elif 1 < scp_number < 10:
-        scp_number = f"00{scp_number}"
-    elif scp_number == 1:
-        print("ERROR - 1")
-        return
+def GetSCP(scp_number: str):
 
     url = fr"http://www.scpwiki.com/scp-{scp_number}"
 
