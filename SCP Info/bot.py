@@ -1,14 +1,24 @@
 import discord
 from discord.ext import commands
 import GetSCP
-import os
 from dotenv import load_dotenv
+import os
+import urllib
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix="\'", intents=intents)
-
 bot.remove_command('help')
+
+access_denied = discord.Embed(
+    title='🛑Uh Oh!', description=f'Looks like you don\'t have permission!', colour=discord.Colour(0x992d22)
+)
+access_denied.set_footer(
+    text=f'Access Denied | Administrator Permission Required'
+)
 
 
 @bot.event
@@ -39,8 +49,28 @@ async def code(ctx):
 
 
 @bot.command()
+async def servercount(ctx):
+    author = ctx.message.author
+    embed_serverCount = discord.Embed(
+        title='Server Count', description=f'I\'m in **{len(bot.guilds)}** servers!', colour=discord.Colour(0x992d22)
+    )
+
+    embed_serverCount.set_footer(
+        text=f'Administrator Command | Access Granted'
+    )
+
+    if author.id == int('704052817760878592'):
+        await ctx.send(embed=embed_serverCount)
+
+    else:
+        await ctx.send(embed=access_denied)
+
+
+@bot.command()
 async def scp(ctx, scp_number):
     author = ctx.message.author
+    embed_error = discord.Embed(
+        title='🛑Oops!', description='That isn\'t a valid SCP Number! Try `\'scp {001 - 6000}`', colour=discord.Colour(0x992d22))
     scp_int = int(scp_number)
 
     if 100 > scp_int >= 10:
@@ -51,7 +81,10 @@ async def scp(ctx, scp_number):
         print("ERROR - 1")
         return
 
-    x = GetSCP.GetSCP(scp_number)
+    try:
+        x = GetSCP.GetSCP(scp_number)
+    except urllib.error.HTTPError:
+        await ctx.send(embed=embed_error)
 
     text_lists = []
     scp_len = len(x)
@@ -94,4 +127,4 @@ async def scp(ctx, scp_number):
             await message.remove_reaction(emoji="▶", member=ctx.author)
 
 
-bot.run(os.getenv('BOT_TOKEN'))
+bot.run(TOKEN)
