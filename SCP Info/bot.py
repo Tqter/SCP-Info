@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix="\'", intents=intents)
 bot.remove_command('help')
 
 access_denied = discord.Embed(
-    title='🛑Uh Oh!', description=f'Looks like you don\'t have permission!', colour=discord.Colour(0x992d22)
+    title=':octagonal_sign:Uh Oh!', description=f'Looks like you don\'t have permission!', colour=discord.Colour(0x992d22)
 )
 access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
@@ -70,7 +70,7 @@ async def servercount(ctx):
 async def scp(ctx, scp_number):
     author = ctx.message.author
     embed_error = discord.Embed(
-        title='🛑Oops!', description='That isn\'t a valid SCP Number! Try `\'scp {001 - 6000}`', colour=discord.Colour(0x992d22))
+        title=':octagonal_sign:Oops!', description='That isn\'t a valid SCP Number! Try `\'scp {001 - 6000}`', colour=discord.Colour(0x992d22))
     scp_int = int(scp_number)
 
     if 100 > scp_int >= 10:
