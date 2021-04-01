@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix="\'", intents=intents)
 bot.remove_command('help')
 
 access_denied = discord.Embed(
-    title=':octagonal_sign:Uh Oh!', description=f'Looks like you don\'t have permission!', colour=discord.Colour(0x992d22)
+    title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!", colour=discord.Colour(0x992d22)
 )
 access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
