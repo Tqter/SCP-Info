@@ -43,7 +43,7 @@ async def help(ctx):
 @bot.command()
 async def code(ctx):
     embed_code = discord.Embed(
-        title="Code", description="This bot is currently not open source.", colour=discord.Colour(0x992d22)
+        title="Code", description="Click here for my GitHub repository:\n\n https://github.com/Tqter/SCP-Info", colour=discord.Colour(0x992d22)
     )
     await ctx.send(embed=embed_code)
 
