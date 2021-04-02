@@ -31,7 +31,7 @@ async def on_ready():
 async def help(ctx):
     author = ctx.message.author
     embed_help = discord.Embed(
-        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on different SCPs!\n\n **Prefix:** `'`\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n :question: `'code` | Brings you to this bot's GitHub Repository", colour=discord.Colour(0x992d22))
+        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n :question: `'code` | Brings you to this bot's GitHub Repository", colour=discord.Colour(0x992d22))
 
     embed_help.set_footer(
         text=f"SCP Info | Created by Tqter#1696"
