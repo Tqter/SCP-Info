@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import GetSCP
-import cogs.scp
 from dotenv import load_dotenv
 import os
 import urllib
@@ -136,5 +135,5 @@ async def scp(ctx, scp_number):
             await message.remove_reaction(emoji="▶", member=ctx.author)
 
 
-bot.load_cog(scp.CommandSCP)
+bot.load_extension(scp.CommandSCP)
 bot.run(TOKEN)
