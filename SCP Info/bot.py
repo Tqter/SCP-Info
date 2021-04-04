@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import GetSCP
+import cogs.scp
 from dotenv import load_dotenv
 import os
 import urllib
@@ -18,6 +19,14 @@ access_denied = discord.Embed(
 )
 access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
+)
+
+invalid_command = discord.Embed(
+    title='"octagonal_sign:Invalid Command', description=f"Looks like that command doesn't exist! Try `'help`."
+)
+
+invalid_command.set_footer(
+    text=f'Try another command!'
 )
 
 
@@ -127,4 +136,5 @@ async def scp(ctx, scp_number):
             await message.remove_reaction(emoji="▶", member=ctx.author)
 
 
+bot.load_cog(scp.CommandSCP)
 bot.run(TOKEN)
