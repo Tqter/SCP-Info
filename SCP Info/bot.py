@@ -1,4 +1,5 @@
 import discord
+import random
 from discord.ext import commands
 import GetSCP
 from dotenv import load_dotenv
@@ -42,7 +43,7 @@ async def on_ready():
 async def help(ctx):
     author = ctx.message.author
     embed_help = discord.Embed(
-        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n :question: `'code` | Brings you to this bot's GitHub Repository", colour=discord.Colour(0x992d22))
+        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!", colour=discord.Colour(0x992d22))
 
     embed_help.set_footer(
         text=f"SCP Info | Created by Tqter#1696"
@@ -75,6 +76,26 @@ async def servercount(ctx):
 
     else:
         await ctx.send(embed=access_denied)
+
+
+
+@bot.command()
+async def contain(ctx, user: discord.Member):
+    author = ctx.message.author
+    id_contain = str(user.id)
+    contain_list = [
+        f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+        f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+        f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
+        f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+        f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
+        f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
+        f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.',
+        f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
+        f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+    ]
+    await ctx.send(random.choice(contain_list))
+
 
 import scp
 bot.add_cog(scp.CommandSCP())
