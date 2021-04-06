@@ -39,11 +39,14 @@ async def on_ready():
     print("We are up!")
 
 
+
 @bot.command(pass_context=True)
 async def help(ctx):
     author = ctx.message.author
     embed_help = discord.Embed(
-        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!", colour=discord.Colour(0x992d22))
+        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!\n\n :question: `'updates` | Many Updates and Fixes still to come :eyes:\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)", colour=discord.Colour(0x992d22))
+
+    embed_help.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)
 
     embed_help.set_footer(
         text=f"SCP Info | Created by Tqter#1696"
@@ -53,11 +56,40 @@ async def help(ctx):
 
 
 @bot.command()
+async def updates(ctx):
+    author = ctx.message.author
+    embed_updates = discord.Embed(
+        title="Updates", description=f"There are still many small bugs/issues to repair. New features are coming almost every day! To stay updated on updates and bug fixes, join the [Support Server](https://discord.gg/DaWMTsXUYZ).", colour=discord.Colour(0x992d22)
+    )
+    await ctx.send(embed=embed_updates)
+
+
+@bot.command()
 async def code(ctx):
     embed_code = discord.Embed(
         title="Code", description='This bot is currently not open source.', colour=discord.Colour(0x992d22)
     )
     await ctx.send(embed=embed_code)
+
+
+@bot.command()
+async def servercountme(ctx):
+    author = ctx.message.author
+    embed_serverCount = discord.Embed(
+        title='Server Count', description=f'I\'m in **{len(bot.guilds)}** servers!', colour=discord.Colour(0x992d22)
+    )
+
+    embed_serverCount.set_footer(
+        text=f'Administrator Command | Access Granted'
+    )
+
+    if author.id == int('704052817760878592'):
+        await ctx.author.send(embed=embed_serverCount)
+
+    else:
+        await ctx.send(embed=access_denied)
+
+
 
 
 @bot.command()
@@ -71,11 +103,7 @@ async def servercount(ctx):
         text=f'Administrator Command | Access Granted'
     )
 
-    if author.id == int('704052817760878592'):
-        await ctx.send(embed=embed_serverCount)
-
-    else:
-        await ctx.send(embed=access_denied)
+    await ctx.send(embed=embed_serverCount)
 
 
 
@@ -87,10 +115,16 @@ async def contain(ctx, user: discord.Member):
         f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
         f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
         f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
+        f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+        f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
         f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+        f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+        f'{author.mention} died to automatic security while running from <@{id_contain}>.',
         f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
+        f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
         f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-        f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.',
+        f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+        f'{author.mention} died to automatic security while running from <@{id_contain}>.',
         f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
         f'{author.mention} died to automatic security while running from <@{id_contain}>.',
     ]
