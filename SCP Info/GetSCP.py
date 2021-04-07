@@ -3,8 +3,9 @@ import re
 
 
 def FilterTags(html: str):
-    # Bold
+    # Bold and Italics
     html = html.replace("<strong>", "**").replace("</strong>", "**")
+    html = html.replace("<em>", "*").replace("</em>", "*")
 
     # Code Blocks & quotes
     html = html.replace("&gt;", ">").replace("&lt;", "<")
@@ -15,6 +16,7 @@ def FilterTags(html: str):
 
     # Special Characters
     html = html.replace("<sup>o</sup>", "°")
+    html = html.replace("<sup class>", " ")
     return html
 
 
@@ -45,7 +47,6 @@ def StrikeOuts(html: str):
             strikes[part] = strikes[part].replace(full_command, f"~~{text}~~")
     strikes = "".join(strikes)
     return strikes
-
 
 def GetSCP(scp_number: str):
 

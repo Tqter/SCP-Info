@@ -39,10 +39,17 @@ class CommandSCP(commands.Cog):
             scp_count += 2024
 
         embed_list = []
-        for text_group in text_lists:
-            embed_scp = discord.Embed(
-                title=f'SCP-{scp_number}', description=text_group + '... **Read More**',
-                colour=discord.Colour(0x992d22))
+        for x in range(0, len(text_lists)):
+            embed_scp = None
+            if x != len(text_lists) - 1:
+                embed_scp = discord.Embed(
+                    title=f'SCP-{scp_number}', description=text_lists[x] + '... **Read More**',
+                    colour=discord.Colour(0x992d22))
+            else:
+                embed_scp = discord.Embed(
+                    title=f'SCP-{scp_number}', description=text_lists[x],
+                    colour=discord.Colour(0x992d22))
+
 
             embed_list.append(embed_scp)
 
@@ -52,6 +59,7 @@ class CommandSCP(commands.Cog):
 
         await message.add_reaction("◀")
         await message.add_reaction("▶")
+        await message.add_reaction("🔄")
 
         while True:
             reaction, member = await bot.wait_for('reaction_add')
@@ -70,5 +78,11 @@ class CommandSCP(commands.Cog):
                     place += 1
                 await message.edit(embed=embed_list[place])
                 await message.remove_reaction(emoji="▶", member=ctx.author)
+
+            elif reaction.emoji == "🔄":
+                if place > 0:
+                    place = 0
+                await message.edit(embed=embed_list[place])
+                await message.remove_reaction(emoji="🔄", member=ctx.author)
 
 
