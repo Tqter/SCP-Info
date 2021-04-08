@@ -48,12 +48,16 @@ def StrikeOuts(html: str):
     strikes = "".join(strikes)
     return strikes
 
-def GetSCP(scp_number: str):
+
+def GetSCP(scp_number: str, scp_image):
 
     url = fr"http://www.scpwiki.com/scp-{scp_number}"
+    #url = fr"http://www.scpwiki.com/scp-{scp_image}"
 
     req = request.urlopen(url)
     data = re.findall(r"<p>(.*?)</p>", req.read().decode("utf-8"))
+    #data_image = re.findall(r"<img(.*?)>", req.read().decode("utf-8"))
+    #print(data_image)
     req.close()
 
     data = ("\n".join(data)).split("</iframe>")[1].split("\n")
@@ -67,5 +71,3 @@ def GetSCP(scp_number: str):
     parsed = ("\n".join(parsed)).split("&#171;")
     return "\n".join(parsed)
 
-
-GetSCP(1236)

@@ -44,7 +44,7 @@ async def on_ready():
 async def help(ctx):
     author = ctx.message.author
     embed_help = discord.Embed(
-        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!\n\n :question: `'updates` | Many Updates and Fixes still to come :eyes:\n\n :question: `'servercount` | In case you wanna know how many servers this bot is in!\n\n :question: `'invite` | In case you wanna invite this bot to your server! HINT: You should!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)", colour=discord.Colour(0x992d22))
+        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!\n\n :question: `'support` | In case you want help or news on Updates and Fixes\n\n :question: `'servercount` | In case you wanna know how many servers this bot is in!\n\n :question: `'invite` | In case you wanna invite this bot to your server! HINT: You should!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)", colour=discord.Colour(0x992d22))
 
     embed_help.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)
 
@@ -66,10 +66,10 @@ async def invite(ctx):
 
 
 @bot.command()
-async def updates(ctx):
+async def support(ctx):
     author = ctx.message.author
     embed_updates = discord.Embed(
-        title="Updates", description=f"There are still many small bugs/issues to repair. New features are coming almost every day! To stay updated on updates and bug fixes, join the [Support Server](https://discord.gg/DaWMTsXUYZ).", colour=discord.Colour(0x992d22)
+        title="Updates", description=f"Do you need help or have suggestions/bugs? Well then join the [Support Server](https://discord.gg/DaWMTsXUYZ).", colour=discord.Colour(0x992d22)
     )
     await ctx.send(embed=embed_updates)
 
@@ -94,6 +94,8 @@ async def servercount(ctx):
     )
 
     await ctx.send(embed=embed_serverCount)
+
+
 
 
 

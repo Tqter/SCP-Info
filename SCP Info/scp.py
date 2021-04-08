@@ -27,6 +27,7 @@ class CommandSCP(commands.Cog):
 
         try:
             x = GetSCP.GetSCP(scp_number)
+            x = GetSCP.GetSCP(scp_image)
         except urllib.error.HTTPError:
             await ctx.send(embed=embed_error)
 
@@ -49,6 +50,10 @@ class CommandSCP(commands.Cog):
                 embed_scp = discord.Embed(
                     title=f'SCP-{scp_number}', description=text_lists[x],
                     colour=discord.Colour(0x992d22))
+
+            #embed_scp.set_footer(
+             #   f'{scp_image}'
+           # )
 
 
             embed_list.append(embed_scp)
