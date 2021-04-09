@@ -1,8 +1,10 @@
 import discord
 import random
-from discord.ext import commands
+import asyncio
+from discord.ext import commands, tasks
 import GetSCP
 from dotenv import load_dotenv
+from itertools import cycle
 import os
 import builtins
 import urllib
@@ -35,9 +37,8 @@ invalid_command.set_footer(
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="SCP Info | 'help"))
+    await bot.change_presence(activity=discord.Game(name="SCP Info | 'help"))
     print("We are up!")
-
 
 
 @bot.command(pass_context=True)
@@ -94,8 +95,6 @@ async def servercount(ctx):
     )
 
     await ctx.send(embed=embed_serverCount)
-
-
 
 
 

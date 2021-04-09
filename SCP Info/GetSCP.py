@@ -37,6 +37,7 @@ def FilterLinks(html: str):
     return links
 
 
+
 def StrikeOuts(html: str):
     strikes = html.split("<span style=\"text-decoration:")
     for part in range(0, len(strikes)):
@@ -49,15 +50,12 @@ def StrikeOuts(html: str):
     return strikes
 
 
-def GetSCP(scp_number: str, scp_image):
+def GetSCP(scp_number: str):
 
     url = fr"http://www.scpwiki.com/scp-{scp_number}"
-    #url = fr"http://www.scpwiki.com/scp-{scp_image}"
 
     req = request.urlopen(url)
     data = re.findall(r"<p>(.*?)</p>", req.read().decode("utf-8"))
-    #data_image = re.findall(r"<img(.*?)>", req.read().decode("utf-8"))
-    #print(data_image)
     req.close()
 
     data = ("\n".join(data)).split("</iframe>")[1].split("\n")
