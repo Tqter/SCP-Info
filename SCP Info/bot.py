@@ -14,10 +14,12 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix="'", intents=intents)
+bot = commands.Bot(command_prefix="'", intents=intents, case_insensitive=True)
 bot.remove_command('help')
 
 builtins.bot = bot
+
+embed_color = discord.Colour(0x992d22)
 
 access_denied = discord.Embed(
     title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!", colour=discord.Colour(0x992d22)
@@ -41,13 +43,14 @@ async def on_ready():
     print("We are up!")
 
 
+
 @bot.command(pass_context=True)
 async def help(ctx):
     author = ctx.message.author
     embed_help = discord.Embed(
         title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!\n\n :question: `'support` | In case you want help or news on Updates and Fixes\n\n :question: `'servercount` | In case you wanna know how many servers this bot is in!\n\n :question: `'invite` | In case you wanna invite this bot to your server! HINT: You should!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)", colour=discord.Colour(0x992d22))
 
-    embed_help.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)
+    embed_help.set_author(name=ctx.author.name, icon_url=author.avatar_url)
 
     embed_help.set_footer(
         text=f"SCP Info | Created by Tqter#1696"
@@ -75,7 +78,7 @@ async def support(ctx):
     await ctx.send(embed=embed_updates)
 
 
-@bot.command()
+@bot.command(aliases=['c'])
 async def code(ctx):
     embed_code = discord.Embed(
         title="Code", description='This bot is currently not open source.', colour=discord.Colour(0x992d22)
@@ -83,7 +86,7 @@ async def code(ctx):
     await ctx.send(embed=embed_code)
 
 
-@bot.command()
+@bot.command(aliases=['servers'])
 async def servercount(ctx):
     author = ctx.message.author
     embed_serverCount = discord.Embed(
@@ -153,5 +156,7 @@ async def contain(ctx, user: discord.Member):
 
 
 import scp
+import admincommands
 bot.add_cog(scp.CommandSCP())
+bot.add_cog(admincommands.CommandsAdministrator())
 bot.run(TOKEN)

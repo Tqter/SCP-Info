@@ -4,6 +4,8 @@ import discord
 from discord.ext import commands
 from builtins import bot
 
+embed_color = discord.Colour(0x992d22)
+
 
 class CommandSCP(commands.Cog):
     def __init__(self):
