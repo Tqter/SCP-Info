@@ -14,14 +14,6 @@ access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
 )
 
-invalid_command = discord.Embed(
-    title='"octagonal_sign:Invalid Command', description=f"Looks like that command doesn't exist! Try `'help`."
-)
-
-invalid_command.set_footer(
-    text=f'Try another command!'
-)
-
 
 class CommandsAdministrator(commands.Cog):
     def __init__(self):
@@ -37,8 +29,12 @@ class CommandsAdministrator(commands.Cog):
                 timestamp=datetime.datetime.now(datetime.timezone.utc)
             )
 
-            restart_success = await ctx.send(embed=embed_restart)
+            embed_restart.set_footer(
+                text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
+            )
+
             await ctx.message.add_reaction('✅')
+            restart_success = await ctx.send(embed=embed_restart)
             await bot.close()
 
         else:

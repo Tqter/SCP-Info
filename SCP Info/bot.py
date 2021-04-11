@@ -6,6 +6,7 @@ import GetSCP
 from dotenv import load_dotenv
 from itertools import cycle
 import os
+import datetime
 import builtins
 import urllib
 
@@ -15,7 +16,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix="'", intents=intents, case_insensitive=True)
-bot.remove_command('help')
 
 builtins.bot = bot
 
@@ -28,14 +28,6 @@ access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
 )
 
-invalid_command = discord.Embed(
-    title='"octagonal_sign:Invalid Command', description=f"Looks like that command doesn't exist! Try `'help`."
-)
-
-invalid_command.set_footer(
-    text=f'Try another command!'
-)
-
 
 @bot.event
 async def on_ready():
@@ -44,22 +36,7 @@ async def on_ready():
 
 
 
-@bot.command(pass_context=True)
-async def help(ctx):
-    author = ctx.message.author
-    embed_help = discord.Embed(
-        title="Help", description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **General**\n\n :question: `'help` | Shows this Message\n\n :question: `'scp (number)` | Displays info on the specified SCP\n\n **Misc**\n\n :question: `'code` | Brings you to this bot's GitHub Repository\n\n :question: `'contain (user)` | Contains specified user. But be careful, it's risky!\n\n :question: `'support` | In case you want help or news on Updates and Fixes\n\n :question: `'servercount` | In case you wanna know how many servers this bot is in!\n\n :question: `'invite` | In case you wanna invite this bot to your server! HINT: You should!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)", colour=discord.Colour(0x992d22))
-
-    embed_help.set_author(name=ctx.author.name, icon_url=author.avatar_url)
-
-    embed_help.set_footer(
-        text=f"SCP Info | Created by Tqter#1696"
-    )
-
-    await ctx.send(embed=embed_help)
-
-
-@bot.command()
+@bot.command(aliases=['i'])
 async def invite(ctx):
     author = ctx.message.author
     embed_invite = discord.Embed(
@@ -69,7 +46,7 @@ async def invite(ctx):
     await ctx.send(embed=embed_invite)
 
 
-@bot.command()
+@bot.command(aliases=['s'])
 async def support(ctx):
     author = ctx.message.author
     embed_updates = discord.Embed(
@@ -85,20 +62,24 @@ async def code(ctx):
     )
     await ctx.send(embed=embed_code)
 
+@bot.command(aliases=['v'])
+async def vote(ctx):
+    embed_vote = discord.Embed(
+        title='Support SCP Info', description='Click [here](https://top.gg/bot/818294562677588009/vote) to vote for SCP Info!', colour=embed_color
+    )
+    await ctx.send(embed=embed_vote)
+
+
 
 @bot.command(aliases=['servers'])
 async def servercount(ctx):
     author = ctx.message.author
     embed_serverCount = discord.Embed(
-        title='Server Count', description=f'I\'m in **{len(bot.guilds)}** servers!', colour=discord.Colour(0x992d22)
-    )
-
-    embed_serverCount.set_footer(
-        text=f'Administrator Command | Access Granted'
+        title='Server Count', description=f'I\'m in **{len(bot.guilds)}** servers!', colour=discord.Colour(0x992d22),
+        timestamp=datetime.datetime.now(datetime.timezone.utc)
     )
 
     await ctx.send(embed=embed_serverCount)
-
 
 
 @bot.command()
@@ -157,6 +138,9 @@ async def contain(ctx, user: discord.Member):
 
 import scp
 import admincommands
+import help
 bot.add_cog(scp.CommandSCP())
+bot.remove_command('help')
+bot.add_cog(help.CommandsHelp())
 bot.add_cog(admincommands.CommandsAdministrator())
 bot.run(TOKEN)
