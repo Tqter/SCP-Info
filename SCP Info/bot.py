@@ -136,6 +136,7 @@ async def contain(ctx, user: discord.Member):
     await ctx.send(random.choice(contain_list))
 
 
+
 import scp
 import admincommands
 import help

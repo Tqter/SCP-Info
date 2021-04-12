@@ -11,7 +11,7 @@ access_denied = discord.Embed(
     title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!", colour=discord.Colour(0x992d22)
 )
 access_denied.set_footer(
-    text=f'Access Denied | Administrator Permission Required'
+    text=f'Access Denied • Administrator Permission Required'
 )
 
 
@@ -40,7 +40,7 @@ class CommandsHelp(commands.Cog):
         author = ctx.message.author
         embed_helpSCP = discord.Embed(
             title="Help | SCP",
-            description="All the commands related to the SCP Foundation!\n\n `'scp (number)` | Displays info on the specified SCP\n\n `'contain (user)` | Contains specified user. But be careful, it's risky!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
+            description="All the commands related to the SCP Foundation!\n\n <:scp:830789987397009468> `'scp (number)` **•** Displays info on the specified SCP\n\n <:mtf:809783726770094121> `'contain (user)` **•** Contains specified user. But be careful, it's risky!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
             colour=embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
@@ -58,7 +58,7 @@ class CommandsHelp(commands.Cog):
         author = ctx.message.author
         embed_helpMisc = discord.Embed(
             title="Help | Miscellaneous",
-            description="Various random commands that were made as a side dish!\n\n <:code:830641334145777685> `'code`| Brings you to this bot's GitHub Repository\n\n `'support` | In case you want help or news on Updates and Fixes\n\n `'servercount` | In case you wanna know how many servers this bot is in!\n\n `'invite` | In case you wanna invite this bot to your server! HINT: You should!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
+            description="Various random commands that were made as a side dish!\n\n <:code:830641334145777685> `'code` • Brings you to this bot's GitHub Repository\n\n :wrench: `'support` **•** In case you want help or news on Updates and Fixes\n\n <a:countup:830789232431202336> `'servercount` **•** In case you wanna know how many servers this bot is in!\n\n <:invite:830789505212612629> `'invite` **•** In case you wanna invite this bot to your server! HINT: You should!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
             colour=embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
