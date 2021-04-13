@@ -40,7 +40,7 @@ class CommandsHelp(commands.Cog):
         author = ctx.message.author
         embed_helpSCP = discord.Embed(
             title="Help | SCP",
-            description="All the commands related to the SCP Foundation!\n\n <:scp:830789987397009468> `'scp (number)` **•** Displays info on the specified SCP\n\n <:mtf:809783726770094121> `'contain (user)` **•** Contains specified user. But be careful, it's risky!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
+            description="All the commands related to the SCP Foundation!\n\n <:scp:830789987397009468> `'scp (number)` **•** Displays info on the specified SCP\n\n <:05:809787013204541440> `'O5 (number)` **•** Displays information on the specified council member\n\n <:mtf:809783726770094121> `'contain (user)` **•** Contains specified user. But be careful, it's risky!\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
             colour=embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )

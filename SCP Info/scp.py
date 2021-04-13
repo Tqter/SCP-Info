@@ -15,7 +15,7 @@ class CommandSCP(commands.Cog):
     async def scp(self, ctx, scp_number):
         author = ctx.message.author
         embed_error = discord.Embed(
-            title=':octagonal_sign:Oops!', description='That isn\'t a valid SCP Number! Try `\'scp {001 - 6000}`',
+            title=':octagonal_sign:Oops!', description='That isn\'t a valid SCP Number! Try `\'scp {001 - 5999}`',
             colour=discord.Colour(0x992d22))
         scp_int = int(scp_number)
 

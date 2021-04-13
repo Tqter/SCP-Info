@@ -140,7 +140,9 @@ async def contain(ctx, user: discord.Member):
 import scp
 import admincommands
 import help
+import council
 bot.add_cog(scp.CommandSCP())
+bot.add_cog(council.Council())
 bot.remove_command('help')
 bot.add_cog(help.CommandsHelp())
 bot.add_cog(admincommands.CommandsAdministrator())
