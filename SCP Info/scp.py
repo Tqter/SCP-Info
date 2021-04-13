@@ -45,7 +45,7 @@ class CommandSCP(commands.Cog):
             embed_scp = None
             if x != len(text_lists) - 1:
                 embed_scp = discord.Embed(
-                    title=f'SCP-{scp_number}', description=text_lists[x] + '... **Read More**',
+                    title=f'SCP-{scp_number}', url=fr"http://www.scpwiki.com/scp-{scp_number}", description=text_lists[x] + '... **Read More**',
                     colour=discord.Colour(0x992d22))
             else:
                 embed_scp = discord.Embed(
