@@ -34,6 +34,19 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="SCP Info | 'help"))
     print("We are up!")
 
+@bot.event
+async def on_guild_join(guild):
+    embed_added = discord.Embed(
+        title="Thanks for adding me to your Server!",
+        description="Hello! Thanks so much for adding me! I will now attempt to give a brief rundown of what I can do. Just to get this out of the way, my prefix is `'`.\n\n Using high powered python packages, I am able to search the web for any SCP you specify. This is my main command, you can try it by running `'scp (number)`. I also have various other commands such as 05 council member info, fun containment commands to fool your friends, and much more!.\n\n For info on any commands I have, run `'help` in your server! You may also join the [Support Server](https://discord.gg/DaWMTsXUYZ) for any questions, concerns, or ideas!",
+        colour=discord.Colour(3066993)
+    )
+    embed_added.set_footer(
+        text=f"Thanks for adding me {guild.owner}! | Hope you enjoy my company :D"
+    )
+
+    await guild.owner.send(embed=embed_added)
+
 
 
 @bot.command(aliases=['i'])
