@@ -24,22 +24,10 @@ class CommandsHelp(commands.Cog):
         author = ctx.message.author
         embed_help = discord.Embed(
             title="Help",
-            description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`",
+            description=f"Hi! I am a Discord bot focused on giving you info on any SCP of your choice!\n\n **Prefix:** `'`\n\n **SCP**\n\n :question: `'help scp`\n\n **Misc**\n\n :question: `'help misc`\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)",
             colour=discord.Colour(0x992d22),
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
-
-        embed_help.add_field(
-            name="SCP",
-            value=":question: `'help scp`\n\n [Invite](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.gg/DaWMTsXUYZ)"
-        )
-
-        embed_help.add_field(
-            name="Misc",
-            value=":question: `'help misc`"
-        )
-
-
 
         embed_help.set_footer(
             text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
