@@ -1,17 +1,19 @@
 import urllib
 import GetSCP
 import discord
+import random
+import council_members
 from discord.ext import commands
 from builtins import bot
 
 embed_color = discord.Colour(0x992d22)
 
 
-class CommandSCP(commands.Cog):
+class Foundation(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(help="Gives info on any SCP you enter.")
     async def scp(self, ctx, scp_number):
         author = ctx.message.author
         embed_error = discord.Embed(
@@ -86,5 +88,74 @@ class CommandSCP(commands.Cog):
                     place = 0
                 await message.edit(embed=embed_list[place])
                 await message.remove_reaction(emoji="🔄", member=ctx.author)
+
+    @commands.command()
+    async def contain(self, ctx, user: discord.Member):
+        author = ctx.message.author
+        id_contain = str(user.id)
+        contain_list = [
+            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
+            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
+            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
+            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
+            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
+            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
+            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
+            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
+        ]
+        await ctx.send(random.choice(contain_list))
+
+
+    @commands.group(name='O5', pass_context=True, aliases=['05'])
+    async def council(self, ctx, council_member: int):
+        embed_error = discord.Embed(
+            title=':octagonal_sign:Oops!', description='That isn\'t a valid O5 Council Member! Try `\'O5 {1 - 13}`',
+            colour=discord.Colour(0x992d22))
+        try:
+            embed_council = discord.Embed(
+                title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
+                description=(council_members.council_members[council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
+                colour=embed_color
+            )
+            await ctx.send(embed=embed_council)
+        except:
+            await ctx.send(embed=embed_error)
 
 

@@ -15,7 +15,7 @@ access_denied.set_footer(
 )
 
 
-class CommandsAdministrator(commands.Cog):
+class Administrator(commands.Cog):
     def __init__(self):
         self.bot = bot
 
