@@ -2,6 +2,7 @@ import discord
 import random
 import asyncio
 from discord.ext import commands, tasks
+from discord.ext import menus
 import GetSCP
 from dotenv import load_dotenv
 from itertools import cycle
@@ -53,9 +54,9 @@ import scp
 import admincommands
 import help
 import misc
+bot.remove_command('help')
 bot.add_cog(scp.Foundation())
 bot.add_cog(misc.Misc())
-bot.remove_command('help')
 bot.add_cog(help.HelpCommand())
 bot.add_cog(admincommands.Administrator())
 bot.run(TOKEN)

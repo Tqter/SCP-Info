@@ -14,7 +14,7 @@ class Misc(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.command(aliases=['i'])
+    @commands.command(aliases=['i'], help="Invite me to Your Server!")
     async def invite(self, ctx):
         author = ctx.message.author
         embed_invite = discord.Embed(
@@ -35,14 +35,14 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed_updates)
 
-    @commands.command(aliases=['c'])
+    @commands.command(aliases=['c'], help="View my source code!")
     async def code(self, ctx):
         embed_code = discord.Embed(
             title="Code", description='This bot is currently not open source.', colour=discord.Colour(0x992d22)
         )
         await ctx.send(embed=embed_code)
 
-    @commands.command(aliases=['v'])
+    @commands.command(aliases=['v'], help="Vote for me on [Top.gg](https://top.gg/bot/818294562677588009)!")
     async def vote(self, ctx):
         embed_vote = discord.Embed(
             title='Support SCP Info',
@@ -51,7 +51,7 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed_vote)
 
-    @commands.command(aliases=['servers'])
+    @commands.command(aliases=['servers'], help="See how many Servers i'm in!")
     async def servercount(self, ctx):
         author = ctx.message.author
         embed_serverCount = discord.Embed(
@@ -62,7 +62,7 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed_serverCount)
 
-    @commands.command(aliases=["information"])
+    @commands.command(aliases=["information"], help="Learn more about me!")
     async def info(self, ctx):
         author = ctx.message.author
         embed_info = discord.Embed(

@@ -89,7 +89,7 @@ class Foundation(commands.Cog):
                 await message.edit(embed=embed_list[place])
                 await message.remove_reaction(emoji="🔄", member=ctx.author)
 
-    @commands.command()
+    @commands.command(help="`Contain` your friends and play some pranks on them!")
     async def contain(self, ctx, user: discord.Member):
         author = ctx.message.author
         id_contain = str(user.id)
@@ -143,7 +143,7 @@ class Foundation(commands.Cog):
         await ctx.send(random.choice(contain_list))
 
 
-    @commands.group(name='O5', pass_context=True, aliases=['05'])
+    @commands.group(name="O5", pass_context=True, aliases=['05'], help="View info on the Specified O5 Council Member.")
     async def council(self, ctx, council_member: int):
         embed_error = discord.Embed(
             title=':octagonal_sign:Oops!', description='That isn\'t a valid O5 Council Member! Try `\'O5 {1 - 13}`',
