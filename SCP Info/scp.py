@@ -1,12 +1,21 @@
-import urllib
+import praw
 import GetSCP
 import discord
+import datetime
+import urllib
 import random
 import council_members
 from discord.ext import commands
 from builtins import bot
 
 embed_color = discord.Colour(0x992d22)
+
+reddit = praw.Reddit(client_id = "w_lVEqKZWECPnA",
+                     client_secret = "dmuixS8UTfzVU_i0qWGZAn9Ts3XZ_g",
+                     username = "CouchPotato_23",
+                     password = "magicSquirt23",
+                     user_agent = "scpimages")
+
 
 
 class Foundation(commands.Cog):
@@ -157,5 +166,40 @@ class Foundation(commands.Cog):
             await ctx.send(embed=embed_council)
         except:
             await ctx.send(embed=embed_error)
+
+    @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["image"])
+    async def images(self, ctx):
+        author = ctx.message.author
+
+        subreddit = reddit.subreddit("SCP")
+        all_subs = []
+        top = subreddit.top(limit=50)
+
+        for submission in top:
+            all_subs.append(submission)
+
+        random_sub = random.choice(all_subs)
+
+        name = random_sub.title
+        url = random_sub.url
+
+        embed_reddit = discord.Embed(
+            title=name,
+            url=url,
+            color=embed_color,
+            timestamp=datetime.datetime.now(datetime.timezone.utc)
+        )
+
+        embed_reddit.set_image(
+            url=url
+        )
+
+        embed_reddit.set_footer(
+            text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
+        )
+
+        await ctx.send(embed=embed_reddit)
+
+
 
 

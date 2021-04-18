@@ -2,7 +2,6 @@ import discord
 import random
 import asyncio
 from discord.ext import commands, tasks
-from discord.ext import menus
 import GetSCP
 from dotenv import load_dotenv
 from itertools import cycle
@@ -35,6 +34,22 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="SCP Info | 'help"))
     print("We are up!")
 
+
+async def ch_pr():
+    await bot.wait_until_ready()
+
+    statuses = ["SCP Info | 'help", f"on {len(bot.guilds)} servers! | 'help", "with SCP-999"]
+
+    while not bot.is_closed():
+        status = random.choice(statuses)
+
+        await bot.change_presence(activity=discord.Game(name=status))
+        await asyncio.sleep(60)
+
+bot.loop.create_task(ch_pr())
+
+
+
 @bot.event
 async def on_guild_join(guild):
     embed_added = discord.Embed(
@@ -52,11 +67,9 @@ async def on_guild_join(guild):
 
 import scp
 import admincommands
-import help
 import misc
-bot.remove_command('help')
+bot.load_extension("help")
 bot.add_cog(scp.Foundation())
 bot.add_cog(misc.Misc())
-bot.add_cog(help.HelpCommand())
 bot.add_cog(admincommands.Administrator())
 bot.run(TOKEN)

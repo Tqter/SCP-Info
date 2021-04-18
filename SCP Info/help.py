@@ -14,22 +14,36 @@ access_denied.set_footer(
 )
 
 
-class HelpCommand(commands.Cog):
-    def __init__(self):
+class MyNewHelp(commands.MinimalHelpCommand):
+    async def send_pages(self):
+        author = self.context.message.author
+        destination = self.get_destination()
+        for page in self.paginator.pages:
+            embed_help = discord.Embed(title="<:scp:830789987397009468> Help",
+                                       description=page,
+                                       colour=discord.Colour(0x992d22),
+                                       timestamp=datetime.datetime.now(datetime.timezone.utc))
+
+            embed_help.set_footer(
+                text=f"Command invoked by {self.context.message.author.name}", icon_url=author.avatar_url
+            )
+
+            await destination.send(embed=embed_help)
+
+    def get_command_signature(self, command):
+        return '{0.clean_prefix}{1.qualified_name} {1.signature}'.format(self, command)
+
+
+class Other(commands.Cog):
+    def __init__(self, bot):
         self.bot = bot
-
-    @commands.group(invoke_without_command=True, pass_context=True, aliases=['h'])
-    async def help(self, ctx):
-        class MyNewHelp(commands.MinimalHelpCommand):
-            async def send_pages(self):
-                author = ctx.message.author
-                destination = self.get_destination()
-                for page in self.paginator.pages:
-                    embed_help = discord.Embed(title="Help",
-                        description=page,
-                        colour=discord.Colour(0x992d22),
-                        timestamp=datetime.datetime.now(datetime.timezone.utc))
-
-                    await destination.send(embed=embed_help)
-
+        self._original_help_command = bot.help_command
         bot.help_command = MyNewHelp()
+        bot.help_command.cog = self
+
+    def cog_unload(self):
+        self.bot.help_command = self._original_help_command
+
+def setup(bot):
+    bot.add_cog(Other(bot))
+
