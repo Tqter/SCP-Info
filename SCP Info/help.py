@@ -20,7 +20,7 @@ class MyNewHelp(commands.MinimalHelpCommand):
         destination = self.get_destination()
         for page in self.paginator.pages:
             embed_help = discord.Embed(title="<:scp:830789987397009468> Help",
-                                       description=page,
+                                       description=page + "\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/)",
                                        colour=discord.Colour(0x992d22),
                                        timestamp=datetime.datetime.now(datetime.timezone.utc))
 

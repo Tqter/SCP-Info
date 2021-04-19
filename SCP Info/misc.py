@@ -72,3 +72,15 @@ class Misc(commands.Cog):
         )
 
         await ctx.send(embed=embed_info)
+
+
+    @commands.command(aliases=['web'], help="View my [Website](https://www.scpinfo.xyz/)!")
+    async def website(self, ctx):
+        author = ctx.message.author
+        embed_website = discord.Embed(
+            title="<:website:833430346632658974> Website",
+            description="Make sure to check out my [Website](https://www.scpinfo.xyz/)!",
+            colour=embed_color
+        )
+
+        await ctx.send(embed=embed_website)

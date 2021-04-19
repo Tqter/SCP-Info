@@ -14,7 +14,8 @@ reddit = praw.Reddit(client_id = "w_lVEqKZWECPnA",
                      client_secret = "dmuixS8UTfzVU_i0qWGZAn9Ts3XZ_g",
                      username = "CouchPotato_23",
                      password = "magicSquirt23",
-                     user_agent = "scpimages")
+                     user_agent = "scpimages",
+                     check_for_async=False)
 
 
 
