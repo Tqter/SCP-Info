@@ -2,7 +2,9 @@ import praw
 import GetSCP
 import discord
 import datetime
+import json
 import urllib
+import aiohttp
 import random
 import council_members
 from discord.ext import commands
@@ -170,36 +172,42 @@ class Foundation(commands.Cog):
 
     @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["image"])
     async def images(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://www.reddit.com/r/SCP.json") as r:
+                images = await r.json()
+
+                author = ctx.message.author
+
+                embed_reddit = discord.Embed(
+                    color=embed_color,
+                    timestamp=datetime.datetime.now(datetime.timezone.utc)
+                )
+
+                embed_reddit.set_image(
+                    url=images["data"]['children'][random.randint(0, 25)]['data']['url'])
+
+                embed_reddit.set_footer(
+                    text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
+                )
+
+                await ctx.send(embed=embed_reddit)
+
+    @commands.command(help="View an illustrated and explained chart of SCP Classification.", aliases=["class", "classes"])
+    async def classification(self, ctx):
         author = ctx.message.author
-
-        subreddit = reddit.subreddit("SCP")
-        all_subs = []
-        top = subreddit.top(limit=50)
-
-        for submission in top:
-            all_subs.append(submission)
-
-        random_sub = random.choice(all_subs)
-
-        name = random_sub.title
-        url = random_sub.url
-
-        embed_reddit = discord.Embed(
-            title=name,
-            url=url,
-            color=embed_color,
+        embed_classes = discord.Embed(
+            title="SCP Classification",
+            colour=embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
 
-        embed_reddit.set_image(
-            url=url
-        )
-
-        embed_reddit.set_footer(
+        embed_classes.set_footer(
             text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
         )
 
-        await ctx.send(embed=embed_reddit)
+        embed_classes.set_image(url="https://i.redd.it/qpx6kphvs7o41.png")
+
+        await ctx.send(embed=embed_classes)
 
 
 

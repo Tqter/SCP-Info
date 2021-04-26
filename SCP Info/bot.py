@@ -68,8 +68,10 @@ async def on_guild_join(guild):
 import scp
 import admincommands
 import misc
+import sql
 bot.load_extension("help")
 bot.add_cog(scp.Foundation())
 bot.add_cog(misc.Misc())
+#bot.add_cog(sql.Language())
 bot.add_cog(admincommands.Administrator())
 bot.run(TOKEN)
