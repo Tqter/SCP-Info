@@ -1,23 +1,61 @@
 import discord
 import random
 import asyncio
-from discord.ext import commands, tasks
+from discord.ext import commands, ipc
 import GetSCP
+import time
 from dotenv import load_dotenv
 from itertools import cycle
 import os
+import sqlite3
 import datetime
-import builtins
 import urllib
+import builtins
+db = sqlite3.connect("database.db")
+db.execute("""
+CREATE TABLE IF NOT EXISTS guilds (
+    GuildID integer PRIMARY KEY,
+    Prefix text DEFAULT "'"
+);""")
+db.commit()
+builtins.db = db
+
+
+class MyBot(commands.Bot):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.ipc = ipc.Server(self, secret_key="scpinfoepic23")  # create our IPC Server
+
+    async def on_ready(self):
+        """Called upon the READY event"""
+        print("Bot is ready.")
+
+    async def on_ipc_ready(self):
+        """Called upon the IPC Server being ready"""
+        print("Ipc is ready.")
+
+    async def on_ipc_error(self, endpoint, error):
+        """Called upon an error being raised within an IPC route"""
+        print(endpoint, "raised", error)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
+
+
+def get_prefix(message):
+    prefix = db.execute("SELECT Prefix FROM guilds WHERE GuildID = ?", (message.guild.id,)).fetchone()[0]
+    return prefix
+
+
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix="'", intents=intents, case_insensitive=True)
-
+intents.messages = True
+bot = MyBot(command_prefix="'", intents=intents, case_insensitive=True)
 builtins.bot = bot
+import misc
+bot.launch_time = time.time()
 
 embed_color = discord.Colour(0x992d22)
 
@@ -28,26 +66,41 @@ access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
 )
 
+@bot.event
+async def on_message(message):
+    print(f"Got message {message.content}")
+    ctx = await bot.get_context(message)
+    print("got context")
+    prefix = get_prefix(message)
+    print("got prefix")
+    if ctx.message[0:len(prefix)] == prefix:
+        message.content = f"'{message.content[len(prefix) + 1:-1]}"
+        print("checked prefix")
+        await bot.process_commands(message)
+        print("Finished")
 
 @bot.event
-async def on_ready():
-    await bot.change_presence(activity=discord.Game(name="SCP Info | 'help"))
-    print("We are up!")
+async def on_guild_join(guild):
+    try:
+        db.execute("insert into guilds (guild_id) values (?)", (guild.id,))
+
+    except:
+        return
 
 
 async def ch_pr():
     await bot.wait_until_ready()
 
-    statuses = ["SCP Info | 'help", f"on {len(bot.guilds)} servers! | 'help", "with SCP-999"]
-
     while not bot.is_closed():
+        statuses = ["SCP Info | 'help", f"on {len(bot.guilds)} servers! | 'help", f"with {len(bot.users)} users!",
+                    "with SCP-999", "'help | scpinfo.xyz", "on scpinfo.xyz", "with SCP-682", "SCP: Secret Laboratory"]
+
         status = random.choice(statuses)
 
         await bot.change_presence(activity=discord.Game(name=status))
         await asyncio.sleep(60)
 
 bot.loop.create_task(ch_pr())
-
 
 
 @bot.event
@@ -64,14 +117,42 @@ async def on_guild_join(guild):
     await guild.owner.send(embed=embed_added)
 
 
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
+    if not message.guild.me in message.mentions:
+        return
+    author = message.author
+    embed_pingprefix = discord.Embed(
+        title="Heya!",
+        description=f"Looks like you need some help! My prefix is `{get_prefix}`. Try running the `'help` command!",
+        timestamp=datetime.datetime.now(datetime.timezone.utc),
+        colour=embed_color
+    )
+
+    embed_pingprefix.set_footer(
+        text=f"Command invoked by {message.author.name}", icon_url=author.avatar_url
+    )
+    await message.channel.send(embed=embed_pingprefix)
+
+
+
+@bot.ipc.route()
+async def get_server_count(data):
+    return len(bot.guilds)  # return the member count to the client
 
 import scp
 import admincommands
 import misc
-import sql
+import beta
+import languages
 bot.load_extension("help")
 bot.add_cog(scp.Foundation())
+bot.add_cog(beta.Beta())
+bot.add_cog(languages.Languages())
 bot.add_cog(misc.Misc())
-#bot.add_cog(sql.Language())
 bot.add_cog(admincommands.Administrator())
-bot.run(TOKEN)
+
+if __name__ == "__main__":
+    bot.ipc.start()  # start the IPC Server
+    bot.run(TOKEN)

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from builtins import bot
+from builtins import bot, db
 import datetime
 
 
@@ -40,3 +40,25 @@ class Administrator(commands.Cog, command_attrs=dict(hidden=True)):
         else:
             restart_failure = await ctx.send(embed=access_denied)
             await ctx.message.add_reaction('🚫')
+
+    @commands.command()
+    async def leave(self, ctx, get_server: int):
+        if ctx.author.id == int('704052817760878592'):
+            get_id = bot.get_guild(get_server)
+            await get_id.leave()
+            await ctx.send("Left that Server!")
+
+        else:
+            leave_failure = await ctx.send(embed=access_denied)
+            await ctx.message.add_reaction('🚫')
+
+    @commands.command()
+    async def add(self, ctx):
+        try:
+            for guild in bot.guilds:
+                db.execute("insert into guilds (GuildID) values(?)", (guild.id,))
+                db.commit()
+            await ctx.send("I did the funny!")
+
+        except:
+            pass

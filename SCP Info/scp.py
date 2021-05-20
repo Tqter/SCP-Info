@@ -12,14 +12,6 @@ from builtins import bot
 
 embed_color = discord.Colour(0x992d22)
 
-reddit = praw.Reddit(client_id = "w_lVEqKZWECPnA",
-                     client_secret = "dmuixS8UTfzVU_i0qWGZAn9Ts3XZ_g",
-                     username = "CouchPotato_23",
-                     password = "magicSquirt23",
-                     user_agent = "scpimages",
-                     check_for_async=False)
-
-
 
 class Foundation(commands.Cog):
     def __init__(self):
@@ -28,9 +20,6 @@ class Foundation(commands.Cog):
     @commands.command(help="Gives info on any SCP you enter.")
     async def scp(self, ctx, scp_number):
         author = ctx.message.author
-        embed_error = discord.Embed(
-            title=':octagonal_sign:Oops!', description='That isn\'t a valid SCP Number! Try `\'scp {001 - 5999}`',
-            colour=discord.Colour(0x992d22))
         scp_int = int(scp_number)
 
         if 100 > scp_int >= 10:
@@ -41,10 +30,7 @@ class Foundation(commands.Cog):
             print("ERROR - 1")
             return
 
-        try:
-            x = GetSCP.GetSCP(scp_number)
-        except urllib.error.HTTPError:
-            await ctx.send(embed=embed_error)
+        x = GetSCP.GetSCP(scp_number)
 
         text_lists = []
         scp_len = len(x)
@@ -101,6 +87,14 @@ class Foundation(commands.Cog):
                 await message.edit(embed=embed_list[place])
                 await message.remove_reaction(emoji="🔄", member=ctx.author)
 
+    @scp.error
+    async def scp_error(self, ctx, error):
+        embed_scp_error = discord.Embed(
+            title=':octagonal_sign:Oops!',
+            description='You might have missed an argument or put an invalid number in! Try `\'scp {001 - 5999}`',
+            colour=discord.Colour(0x992d22))
+        await ctx.send(embed=embed_scp_error)
+
     @commands.command(help="`Contain` your friends and play some pranks on them!")
     async def contain(self, ctx, user: discord.Member):
         author = ctx.message.author
@@ -154,43 +148,32 @@ class Foundation(commands.Cog):
         ]
         await ctx.send(random.choice(contain_list))
 
+    @contain.error
+    async def contain_error(self, ctx, error):
+        embed_contain_error = discord.Embed(title=':octagonal_sign:Oops!',
+                                            description="""
+                                            Make sure you enter a valid user! Check that you spell their name correctly! (Case Sensitive)
+                                            """,
+                                            colour=embed_color
+                                            )
+        await ctx.send(embed=embed_contain_error)
 
-    @commands.group(name="O5", pass_context=True, aliases=['05'], help="View info on the Specified O5 Council Member.")
+    @commands.command(name="O5", pass_context=True, aliases=['05'], help="View info on the Specified O5 Council Member.")
     async def council(self, ctx, council_member: int):
-        embed_error = discord.Embed(
-            title=':octagonal_sign:Oops!', description='That isn\'t a valid O5 Council Member! Try `\'O5 {1 - 13}`',
+        embed_council = discord.Embed(
+            title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
+            description=(council_members.council_members[council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
+            colour=embed_color
+        )
+        await ctx.send(embed=embed_council)
+
+    @council.error
+    async def council_error(self, ctx, error):
+        embed_council_error = discord.Embed(
+            title=':octagonal_sign:Oops!',
+            description='Looks like that isn\'t a valid O5 Council member! Try `\'O5 {1 - 13}`',
             colour=discord.Colour(0x992d22))
-        try:
-            embed_council = discord.Embed(
-                title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
-                description=(council_members.council_members[council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
-                colour=embed_color
-            )
-            await ctx.send(embed=embed_council)
-        except:
-            await ctx.send(embed=embed_error)
-
-    @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["image"])
-    async def images(self, ctx):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get("https://www.reddit.com/r/SCP.json") as r:
-                images = await r.json()
-
-                author = ctx.message.author
-
-                embed_reddit = discord.Embed(
-                    color=embed_color,
-                    timestamp=datetime.datetime.now(datetime.timezone.utc)
-                )
-
-                embed_reddit.set_image(
-                    url=images["data"]['children'][random.randint(0, 25)]['data']['url'])
-
-                embed_reddit.set_footer(
-                    text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
-                )
-
-                await ctx.send(embed=embed_reddit)
+        await ctx.send(embed=embed_council_error)
 
     @commands.command(help="View an illustrated and explained chart of SCP Classification.", aliases=["class", "classes"])
     async def classification(self, ctx):
