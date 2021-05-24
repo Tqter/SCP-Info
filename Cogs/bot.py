@@ -42,7 +42,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 
 intents = discord.Intents.default()
-intents.members = True
 intents.messages = True
 bot = MyBot(command_prefix="'", intents=intents, case_insensitive=True)
 builtins.bot = bot

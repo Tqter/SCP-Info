@@ -47,7 +47,7 @@ class Misc(commands.Cog):
     async def vote(self, ctx):
         embed_vote = discord.Embed(
             title='<a:upvote:833057127098220544> Support SCP Info!',
-            description='Click [here](https://top.gg/bot/818294562677588009/vote) to vote for SCP Info!',
+            description='Click [here](https://scpinfo.xyz/vote) to vote for SCP Info!',
             colour=embed_color
         )
         await ctx.send(embed=embed_vote)
