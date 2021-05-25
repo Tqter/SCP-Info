@@ -1,11 +1,9 @@
-import discord
 import datetime
 import time
+from builtins import bot
+from Cogs.utils import get_prefix
+import discord
 from discord.ext import commands
-from builtins import bot, db
-from utils import get_prefix
-
-
 
 embed_color = discord.Colour(0x992d22)
 

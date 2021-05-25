@@ -1,9 +1,9 @@
-import get_scp
-import languages
+import Cogs.get_scp as get_scp
+import Cogs.languages as languages
 import discord
 import datetime
 import random
-import council_members
+import Cogs.council_members as council_members
 from discord.ext import commands
 from builtins import bot
 
