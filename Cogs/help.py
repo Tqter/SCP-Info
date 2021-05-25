@@ -21,9 +21,12 @@ class MyNewHelp(commands.MinimalHelpCommand):
         ctx = self.context
         destination = self.get_destination()
         for page in self.paginator.pages:
-            prefix = get_prefix
+            if isinstance(ctx.channel, discord.channel.DMChannel):
+                prefix = "'"
+            else:
+                prefix = get_prefix(ctx.guild.id)
             embed_help = discord.Embed(
-                                       description=f"My Prefix for this Server is `{get_prefix(ctx.guild.id)}`\n\n" + page + "\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote)",
+                                       description=f"My Prefix for this Server is `{prefix}`\n\n" + page + "\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote)",
                                        colour=discord.Colour(0x992d22),
                                        timestamp=datetime.datetime.now(datetime.timezone.utc))
 

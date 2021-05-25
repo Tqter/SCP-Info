@@ -10,6 +10,11 @@ db.commit()
 builtins.db = db
 
 
+developers = {704052817760878592: "Tqter",
+              337619230583291904: "Keagan"}
+
+
+
 
 def get_prefix(guild_id):
   data = db.execute("select prefix from guilds where GuildId = ?",(guild_id,)).fetchone()
@@ -19,3 +24,4 @@ def get_prefix(guild_id):
     return "'"
   else:
     return data[0]
+
