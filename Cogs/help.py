@@ -6,9 +6,9 @@ from bot import get_prefix
 
 embed_color = discord.Colour(0x992d22)
 
-
 access_denied = discord.Embed(
-    title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!", colour=discord.Colour(0x992d22)
+    title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!",
+    colour=discord.Colour(0x992d22)
 )
 access_denied.set_footer(
     text=f'Access Denied • Administrator Permission Required'
@@ -26,9 +26,9 @@ class MyNewHelp(commands.MinimalHelpCommand):
             else:
                 prefix = get_prefix(ctx.guild.id)
             embed_help = discord.Embed(
-                                       description=f"My Prefix for this Server is `{prefix}`\n\n" + page + "\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote)",
-                                       colour=discord.Colour(0x992d22),
-                                       timestamp=datetime.datetime.now(datetime.timezone.utc))
+                description=f"My Prefix for this Server is `{prefix}`\n\n" + page + "\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote)",
+                colour=discord.Colour(0x992d22),
+                timestamp=datetime.datetime.now(datetime.timezone.utc))
 
             embed_help.set_author(
                 name=str(bot.user.name) + " - Help",
@@ -38,7 +38,6 @@ class MyNewHelp(commands.MinimalHelpCommand):
             embed_help.set_thumbnail(
                 url=str(bot.user.avatar_url)
             )
-
 
             embed_help.set_footer(
                 text=f"Command invoked by {self.context.message.author.name}", icon_url=author.avatar_url
@@ -60,6 +59,6 @@ class Other(commands.Cog):
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
 
+
 def setup(bot):
     bot.add_cog(Other(bot))
-

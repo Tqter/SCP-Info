@@ -1,8 +1,9 @@
-import GetSCP
+import Cogs.get_scp as get_scp
+import Cogs.languages as languages
 import discord
 import datetime
 import random
-import council_members
+import Cogs.council_members as council_members
 from discord.ext import commands
 from builtins import bot
 
@@ -15,7 +16,12 @@ class Foundation(commands.Cog):
 
     @commands.command(help="Gives info on any SCP you enter.")
     async def scp(self, ctx, scp_number):
-        author = ctx.message.author
+
+        if isinstance(ctx.channel, discord.DMChannel):
+            language = "english"
+        else:
+            language = languages.get_language(ctx.guild.id)
+
         scp_int = int(scp_number)
 
         if 100 > scp_int >= 10:
@@ -23,10 +29,9 @@ class Foundation(commands.Cog):
         elif 1 < scp_int < 10:
             scp_number = f"00{scp_int}"
         elif scp_int == 1:
-            print("ERROR - 1")
             return
 
-        x = GetSCP.GetSCP(scp_number)
+        x = get_scp.get_scp(scp_number, language)
 
         text_lists = []
         scp_len = len(x)
@@ -41,13 +46,13 @@ class Foundation(commands.Cog):
             embed_scp = None
             if x != len(text_lists) - 1:
                 embed_scp = discord.Embed(
-                    title=f'SCP-{scp_number}', url=fr"http://www.scpwiki.com/scp-{scp_number}", description=text_lists[x] + '... **Read More**',
+                    title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}",
+                    description=text_lists[x] + '... **Read More**',
                     colour=discord.Colour(0x992d22))
             else:
                 embed_scp = discord.Embed(
                     title=f'SCP-{scp_number}', description=text_lists[x],
                     colour=discord.Colour(0x992d22))
-
 
             embed_list.append(embed_scp)
 
@@ -85,6 +90,7 @@ class Foundation(commands.Cog):
 
     @scp.error
     async def scp_error(self, ctx, error):
+        print(error)
         embed_scp_error = discord.Embed(
             title=':octagonal_sign:Oops!',
             description='You might have missed an argument or put an invalid number in! Try `\'scp {001 - 5999}`',
@@ -154,12 +160,14 @@ class Foundation(commands.Cog):
                                             )
         await ctx.send(embed=embed_contain_error)
 
-    @commands.command(name="O5", pass_context=True, aliases=['05'], help="View info on the Specified O5 Council Member.")
+    @commands.command(name="O5", pass_context=True, aliases=['05'],
+                      help="View info on the Specified O5 Council Member.")
     async def council(self, ctx, council_member: int):
         embed_council = discord.Embed(
             title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
             description=(
-                        council_members.council_members[council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
+                            council_members.council_members[
+                                council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
             colour=embed_color
         )
         await ctx.send(embed=embed_council)
@@ -172,7 +180,8 @@ class Foundation(commands.Cog):
             colour=discord.Colour(0x992d22))
         await ctx.send(embed=embed_council_error)
 
-    @commands.command(help="View an illustrated and explained chart of SCP Classification.", aliases=["class", "classes"])
+    @commands.command(help="View an illustrated and explained chart of SCP Classification.",
+                      aliases=["class", "classes"])
     async def classification(self, ctx):
         author = ctx.message.author
         embed_classes = discord.Embed(
@@ -188,7 +197,3 @@ class Foundation(commands.Cog):
         embed_classes.set_image(url="https://i.redd.it/qpx6kphvs7o41.png")
 
         await ctx.send(embed=embed_classes)
-
-
-
-
