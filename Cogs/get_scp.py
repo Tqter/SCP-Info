@@ -1,5 +1,5 @@
 from urllib import request, response
-import languages
+import Cogs.languages as languages
 import re
 
 

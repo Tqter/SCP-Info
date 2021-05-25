@@ -1,10 +1,10 @@
 import discord
 import datetime
 import time
-import languages
+import Cogs.languages as languages
 from discord.ext import commands
 from builtins import bot, db
-from utils import get_prefix
+from Cogs.utils import get_prefix
 
 embed_color = discord.Colour(0x992d22)
 
@@ -13,7 +13,7 @@ class Settings(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.group(pass_context=True, invoke_without_command=True, name="prefix")
+    @commands.group(pass_context=True, invoke_without_command=True)
     @commands.has_permissions(manage_guild=True)
     async def settings(self, ctx):
         embed_prefix = discord.Embed(
