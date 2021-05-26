@@ -19,10 +19,6 @@ class MyBot(commands.Bot):
         super().__init__(*args, **kwargs)
 
     async def on_ready(self):
-        await generate_table()
-        for guild in bot.guilds:
-            db.execute("insert into guilds (GuildID) values (?)", (guild.id,))
-            db.commit()
         print("Bot is ready.")
 
 
@@ -79,8 +75,9 @@ bot.loop.create_task(ch_pr())
 
 
 async def generate_table():
+    db.execute("drop table if exists guilds")
     db.execute("""
-    CREATE TABLE IF NOT EXISTS guilds (
+    CREATE TABLE guilds (
         GuildID integer PRIMARY KEY,
         Prefix text DEFAULT "\'",
         Language text DEFAULT "english"
