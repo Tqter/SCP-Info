@@ -9,12 +9,11 @@ from Cogs.utils import get_prefix
 embed_color = discord.Colour(0x992d22)
 
 
-
 class Settings(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.group(pass_context=True, invoke_without_command=True, help="Settings for SCP Info!")
+    @commands.group(pass_context=True, invoke_without_command=True, help="Settings for SCP Info!", usage="settings")
     @commands.has_permissions(manage_guild=True)
     async def settings(self, ctx):
         embed_settings = discord.Embed(
@@ -58,7 +57,8 @@ class Settings(commands.Cog):
                 await message.edit(embed=embed_settings)
                 await message.remove_reaction(emoji="🏠", member=ctx.author)
 
-    @settings.command(pass_context=True, help="Change the Prefix for your Server!")
+    @settings.command(pass_context=True, help="Change the Prefix for your Server!",
+                      usage="settings prefix <New Prefix>")
     @commands.has_permissions(manage_guild=True)
     async def prefix(self, ctx, new_prefix: str):
         embed_error_too_long = discord.Embed(
@@ -75,7 +75,8 @@ class Settings(commands.Cog):
             db.commit()
             await ctx.send(f"Set prefix to `{new_prefix}`!")
 
-    @settings.command(pass_context=True, help="Change the Language of the SCP command for your Server!")
+    @settings.command(pass_context=True, help="Change the Language of the SCP command for your Server!",
+                      usage="settings language <New Language>")
     @commands.has_permissions(manage_guild=True)
     async def language(self, ctx, new_language: str):
         if new_language not in languages.langauge_to_website.keys():

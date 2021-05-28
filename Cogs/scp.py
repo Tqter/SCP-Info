@@ -1,9 +1,9 @@
-import Cogs.get_scp as get_scp
-import Cogs.languages as languages
+from Cogs import get_scp
+from Cogs import languages
 import discord
 import datetime
 import random
-import Cogs.council_members as council_members
+from Cogs import council_members
 from discord.ext import commands
 from builtins import bot
 
@@ -14,7 +14,7 @@ class Foundation(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.command(help="Gives info on any SCP you enter.")
+    @commands.command(help="Gives info on any SCP you enter.", usage="scp <0-5999>")
     async def scp(self, ctx, scp_number):
 
         if isinstance(ctx.channel, discord.DMChannel):
@@ -97,7 +97,7 @@ class Foundation(commands.Cog):
             colour=discord.Colour(0x992d22))
         await ctx.send(embed=embed_scp_error)
 
-    @commands.command(help="`Contain` your friends and play some pranks on them!")
+    @commands.command(help="`Contain` your friends and play some pranks on them!", usage="contain <@user>")
     async def contain(self, ctx, user: discord.Member):
         author = ctx.message.author
         id_contain = str(user.id)
@@ -161,7 +161,7 @@ class Foundation(commands.Cog):
         await ctx.send(embed=embed_contain_error)
 
     @commands.command(name="O5", pass_context=True, aliases=['05'],
-                      help="View info on the Specified O5 Council Member.")
+                      help="View info on the Specified O5 Council Member.",usage="O5 <1-13>")
     async def council(self, ctx, council_member: int):
         embed_council = discord.Embed(
             title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
@@ -181,7 +181,7 @@ class Foundation(commands.Cog):
         await ctx.send(embed=embed_council_error)
 
     @commands.command(help="View an illustrated and explained chart of SCP Classification.",
-                      aliases=["class", "classes"])
+                      aliases=["class", "classes"],usage="classification")
     async def classification(self, ctx):
         author = ctx.message.author
         embed_classes = discord.Embed(

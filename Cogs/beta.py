@@ -12,7 +12,7 @@ class Beta(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["image"])
+    @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["image"],usage="image")
     async def images(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://www.reddit.com/r/SCP.json") as r:

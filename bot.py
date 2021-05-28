@@ -23,7 +23,7 @@ class MyBot(commands.Bot):
 
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('Dev_Token')
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -85,13 +85,15 @@ async def generate_table():
     db.commit()
 
 
-import Cogs.scp as scp
-import Cogs.admin_commands as admin_commands
-import Cogs.beta as beta
-import Cogs.languages as languages
-import Cogs.settings as settings
+from Cogs import scp
+from Cogs import beta
+from Cogs import settings
+from Cogs import languages
+from Cogs import misc
+from Cogs import admin_commands
+from Cogs import help
 
-bot.load_extension("Cogs.help")
+bot.add_cog(help.Help())
 bot.add_cog(scp.Foundation())
 bot.add_cog(beta.Beta())
 bot.add_cog(settings.Settings())
