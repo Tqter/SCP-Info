@@ -1,7 +1,0 @@
-*.env
-venv
-.idea
-_pycache_
-database.db
-README.md
-LICENSE
