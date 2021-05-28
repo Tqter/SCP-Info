@@ -12,7 +12,7 @@ class Misc(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.command(aliases=['i'], help="Invite me to Your Server!")
+    @commands.command(aliases=['i'], help="Invite me to Your Server!", usage="invite")
     async def invite(self, ctx):
         author = ctx.message.author
         embed_invite = discord.Embed(
@@ -23,7 +23,7 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed_invite)
 
-    @commands.command(aliases=['s'])
+    @commands.command(aliases=['s'], help="Get support for SCP Info!", usage="support")
     async def support(self, ctx):
         author = ctx.message.author
         embed_updates = discord.Embed(
@@ -33,7 +33,7 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed_updates)
 
-    @commands.command(aliases=['c'], help="View my source code!")
+    @commands.command(aliases=['c'], help="View my source code!", usage="code")
     async def code(self, ctx):
         embed_code = discord.Embed(
             title="<:code:830641334145777685> Code", description='This bot is currently not open source.',
@@ -41,7 +41,7 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed_code)
 
-    @commands.command(aliases=['v'], help="Vote for me on [Top.gg](https://top.gg/bot/818294562677588009)!")
+    @commands.command(aliases=['v'], help="Vote for me on Top.gg!", usage="vote")
     async def vote(self, ctx):
         embed_vote = discord.Embed(
             title='<a:upvote:833057127098220544> Support SCP Info!',
@@ -50,7 +50,7 @@ class Misc(commands.Cog):
         )
         await ctx.send(embed=embed_vote)
 
-    @commands.command(aliases=['servers'], help="See how many Servers i'm in!")
+    @commands.command(aliases=['servers'], help="See how many Servers i'm in!", usage="servercount")
     async def servercount(self, ctx):
         author = ctx.message.author
         embed_serverCount = discord.Embed(
@@ -61,22 +61,7 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed_serverCount)
 
-    # @commands.command(aliases=['user'], help="See how many Active Users I have!")
-    # async def users(self, ctx):
-    #     author = ctx.message.author
-    #     embed_users = discord.Embed(
-    #         title='<:member_join:596576726163914752> Active Users', description=f'I have **{len(bot.users)}** users!',
-    #         colour=discord.Colour(0x992d22),
-    #         timestamp=datetime.datetime.now(datetime.timezone.utc)
-    #     )
-    #
-    #     embed_users.set_footer(
-    #         text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
-    #     )
-    #
-    #     await ctx.send(embed=embed_users)
-
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, help="See how long I have been running!", usage="uptime")
     async def uptime(self, ctx):
         current_time = time.time()
         difference = int(round(current_time - bot.launch_time))
@@ -91,7 +76,7 @@ class Misc(commands.Cog):
         except discord.HTTPException:
             await ctx.send("Current uptime: " + text)
 
-    @commands.command(aliases=["information"], help="Learn more about me!")
+    @commands.command(aliases=["information"], help="Learn more about me!", usage="info")
     async def info(self, ctx):
         author = ctx.message.author
         embed_info = discord.Embed(
@@ -102,11 +87,12 @@ class Misc(commands.Cog):
 
         await ctx.send(embed=embed_info)
 
-    @commands.command(aliases=['web'], help="View my [Website](https://www.scpinfo.xyz/)!")
+    @commands.command(aliases=['web'], help="View my offical website!", usage="website")
     async def website(self, ctx):
         await ctx.send("https://scpinfo.xyz")
 
-    @commands.command(aliases=["terms", "protection"], help="View my Privacy Policy and Terms of Service!")
+    @commands.command(aliases=["terms", "protection"], help="View my Privacy Policy and Terms of Service!",
+                      usage="privacy")
     async def privacy(self, ctx):
         author = ctx.message.author
         embed_privacy = discord.Embed(
@@ -116,19 +102,3 @@ class Misc(commands.Cog):
         )
 
         await ctx.send(embed=embed_privacy)
-
-    # @commands.command()
-    # async def report(self, ctx):
-    #     await ctx.send("Do you want to report a user for maliciously using SCP Info? (y/n)")
-    #     yes_or_no = await bot.wait_for("message")
-    #     if yes_or_no == "yes" or "no" or "y" or "n":
-    #         await ctx.author.send("Please type the user you want to Report")
-    #         message = await bot.wait_for("message")
-    #         user = message.user_mentions[0]
-    #         await ctx.author.send("Please type why you want to report this user")
-    #         await bot.wait_for("message")
-    #         reported = True
-    #         if reported == True:
-    #             await bot.owner.send(f"{ctx.message.author} reported {user}")
-    #
-    #         await ctx.send("Thanks! Your report has been processed and sent to Staff.")

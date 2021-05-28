@@ -1,9 +1,8 @@
 from urllib import request, response
-import Cogs.languages as languages
 import re
 
 
-def filter_tags(html: str):
+def FilterTags(html: str):
     # Bold and Italics
     html = html.replace("<strong>", "**").replace("</strong>", "**")
     html = html.replace("<em>", "*").replace("</em>", "*")
@@ -21,7 +20,7 @@ def filter_tags(html: str):
     return html
 
 
-def filter_links(html: str, language_site):
+def FilterLinks(html: str):
     links = html.split("<a")
     for part in range(0, len(links)):
         if links[part].find(" href=\"") != -1:
@@ -29,7 +28,7 @@ def filter_links(html: str, language_site):
             link = href_data[0].replace(" href=\"", "")
             final_link = link
             if link[0] == "/":
-                final_link = f"{language_site}{link}"
+                final_link = f"http://www.scpwiki.com{link}"
             text = href_data[1].split("</a>")[0]
             full_command = f"href=\"{link}\">{text}</a>"
             links[part] = links[part].replace(
@@ -38,7 +37,8 @@ def filter_links(html: str, language_site):
     return links
 
 
-def strike_outs(html: str):
+
+def StrikeOuts(html: str):
     strikes = html.split("<span style=\"text-decoration:")
     for part in range(0, len(strikes)):
         if strikes[part].find(" line-through;\">") != -1:
@@ -50,8 +50,9 @@ def strike_outs(html: str):
     return strikes
 
 
-def get_scp(scp_number: str, language):
-    url = fr"{languages.langauge_to_website[language]}scp-{scp_number}"
+def GetSCP(scp_number: str):
+
+    url = fr"http://www.scpwiki.com/scp-{scp_number}"
 
     req = request.urlopen(url)
     data = re.findall(r"<p>(.*?)</p>", req.read().decode("utf-8"))
@@ -61,9 +62,10 @@ def get_scp(scp_number: str, language):
 
     parsed = []
     for paragraph in range(0, len(data)):
-        x = filter_links(data[paragraph], languages.langauge_to_website[language])
-        x = filter_tags(x)
-        x = strike_outs(x)
+        x = FilterLinks(data[paragraph])
+        x = FilterTags(x)
+        x = StrikeOuts(x)
         parsed.append(x)
     parsed = ("\n".join(parsed)).split("&#171;")
     return "\n".join(parsed)
+

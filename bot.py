@@ -19,12 +19,11 @@ class MyBot(commands.Bot):
         super().__init__(*args, **kwargs)
 
     async def on_ready(self):
-        """Called upon the READY event"""
         print("Bot is ready.")
 
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('Dev_Token')
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -76,22 +75,25 @@ bot.loop.create_task(ch_pr())
 
 
 async def generate_table():
+    db.execute("drop table if exists guilds")
     db.execute("""
-    CREATE TABLE IF NOT EXISTS guilds (
+    CREATE TABLE guilds (
         GuildID integer PRIMARY KEY,
-        Prefix text DEFAULT "'",
+        Prefix text DEFAULT "\'",
         Language text DEFAULT "english"
     );""")
     db.commit()
 
 
-import Cogs.scp as scp
-import Cogs.admin_commands as admin_commands
-import Cogs.beta as beta
-import Cogs.languages as languages
-import Cogs.settings as settings
+from Cogs import scp
+from Cogs import beta
+from Cogs import settings
+from Cogs import languages
+from Cogs import misc
+from Cogs import admin_commands
+from Cogs import help
 
-bot.load_extension("Cogs.help")
+bot.add_cog(help.Help())
 bot.add_cog(scp.Foundation())
 bot.add_cog(beta.Beta())
 bot.add_cog(settings.Settings())
