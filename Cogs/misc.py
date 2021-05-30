@@ -36,7 +36,7 @@ class Misc(commands.Cog):
     @commands.command(aliases=['c'], help="View my source code!", usage="code")
     async def code(self, ctx):
         embed_code = discord.Embed(
-            title="<:code:830641334145777685> Code", description='This bot is currently not open source.',
+            title="<:code:830641334145777685> Code", description='View my Source Code! [GitHub](https://github.com/Tqter/SCP-Info)',
             colour=discord.Colour(0x992d22)
         )
         await ctx.send(embed=embed_code)
@@ -69,7 +69,8 @@ class Misc(commands.Cog):
         embed = discord.Embed(title=":timer: Uptime",
                               description=text,
                               colour=embed_color,
-                              timestamp=datetime.datetime.now(datetime.timezone.utc)
+                              timestamp=datetime.datetime.now(
+                                  datetime.timezone.utc)
                               )
         try:
             await ctx.send(embed=embed)
