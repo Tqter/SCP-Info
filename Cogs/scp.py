@@ -16,45 +16,45 @@ class Foundation(commands.Cog):
 
     @commands.command(help="Gives info on any SCP you enter.", usage="scp <0-5999>")
     async def scp(self, ctx, scp_number):
-
-        if isinstance(ctx.channel, discord.DMChannel):
-            language = "english"
-        else:
-            language = languages.get_language(ctx.guild.id)
-
-        scp_int = int(scp_number)
-
-        if 100 > scp_int >= 10:
-            scp_number = f"0{scp_int}"
-        elif 1 < scp_int < 10:
-            scp_number = f"00{scp_int}"
-        elif scp_int == 1:
-            return
-
-        x = get_scp.get_scp(scp_number, language)
-
-        text_lists = []
-        scp_len = len(x)
-        scp_count = 0
-        while scp_count < scp_len:
-            scp_string = x[scp_count:scp_count + 2024]
-            text_lists.append(scp_string)
-            scp_count += 2024
-
-        embed_list = []
-        for x in range(0, len(text_lists)):
-            embed_scp = None
-            if x != len(text_lists) - 1:
-                embed_scp = discord.Embed(
-                    title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}",
-                    description=text_lists[x] + '... **Read More**',
-                    colour=discord.Colour(0x992d22))
+        async with ctx.typing():
+            if isinstance(ctx.channel, discord.DMChannel):
+                language = "english"
             else:
-                embed_scp = discord.Embed(
-                    title=f'SCP-{scp_number}', description=text_lists[x],
-                    colour=discord.Colour(0x992d22))
+                language = languages.get_language(ctx.guild.id)
 
-            embed_list.append(embed_scp)
+            scp_int = int(scp_number)
+
+            if 100 > scp_int >= 10:
+                scp_number = f"0{scp_int}"
+            elif 1 < scp_int < 10:
+                scp_number = f"00{scp_int}"
+            elif scp_int == 1:
+                return
+
+            x = get_scp.get_scp(scp_number, language)
+
+            text_lists = []
+            scp_len = len(x)
+            scp_count = 0
+            while scp_count < scp_len:
+                scp_string = x[scp_count:scp_count + 2024]
+                text_lists.append(scp_string)
+                scp_count += 2024
+
+            embed_list = []
+            for x in range(0, len(text_lists)):
+                embed_scp = None
+                if x != len(text_lists) - 1:
+                    embed_scp = discord.Embed(
+                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}",
+                        description=text_lists[x] + '... **Read More**',
+                        colour=discord.Colour(0x992d22))
+                else:
+                    embed_scp = discord.Embed(
+                        title=f'SCP-{scp_number}', description=text_lists[x],
+                        colour=discord.Colour(0x992d22))
+
+                embed_list.append(embed_scp)
 
         place = 0
 
@@ -101,7 +101,9 @@ class Foundation(commands.Cog):
     async def contain(self, ctx, user: discord.Member):
         author = ctx.message.author
         id_contain = str(user.id)
+
         contain_list = [
+
             f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
             f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
             f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
@@ -148,6 +150,7 @@ class Foundation(commands.Cog):
             f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
             f'{author.mention} died to automatic security while running from <@{id_contain}>.',
         ]
+
         await ctx.send(random.choice(contain_list))
 
     @contain.error
@@ -161,13 +164,13 @@ class Foundation(commands.Cog):
         await ctx.send(embed=embed_contain_error)
 
     @commands.command(name="O5", pass_context=True, aliases=['05'],
-                      help="View info on the Specified O5 Council Member.",usage="O5 <1-13>")
+                      help="View info on the Specified O5 Council Member.", usage="O5 <1-13>")
     async def council(self, ctx, council_member: int):
         embed_council = discord.Embed(
             title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
             description=(
-                            council_members.council_members[
-                                council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
+                council_members.council_members[
+                    council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
             colour=embed_color
         )
         await ctx.send(embed=embed_council)
@@ -181,7 +184,7 @@ class Foundation(commands.Cog):
         await ctx.send(embed=embed_council_error)
 
     @commands.command(help="View an illustrated and explained chart of SCP Classification.",
-                      aliases=["class", "classes"],usage="classification")
+                      aliases=["class", "classes"], usage="classification")
     async def classification(self, ctx):
         author = ctx.message.author
         embed_classes = discord.Embed(

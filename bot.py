@@ -2,12 +2,13 @@ import discord
 import random
 import asyncio
 from discord.ext import commands
+from discord.ext import tasks
 import time
 from dotenv import load_dotenv
 import os
 import sqlite3
-from Cogs.utils import get_prefix
 import builtins
+import dbl
 
 db = sqlite3.connect("database.db")
 
@@ -24,12 +25,15 @@ class MyBot(commands.Bot):
 
 load_dotenv()
 TOKEN = os.getenv('Dev_Token')
+DBL_Token = os.getenv('DBL_Token')
 
 intents = discord.Intents.default()
 intents.messages = True
 bot = MyBot(command_prefix="'", intents=intents, case_insensitive=True)
 builtins.bot = bot
+bot.dblpy = dbl.DBLClient(bot, DBL_Token, autopost=True)
 import Cogs.misc as misc
+from Cogs.utils import get_prefix
 
 bot.launch_time = time.time()
 
@@ -42,6 +46,18 @@ access_denied = discord.Embed(
 access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
 )
+
+
+# @tasks.loop(minutes=30)
+# async def update_stats():
+#     """This function runs every 30 minutes to automatically update your server count."""
+#     try:
+#         await bot.dblpy.post_guild_count()
+#         print(f'Posted server count ({bot.dblpy.guild_count})')
+#     except Exception as e:
+#         print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+
+# update_stats.start()
 
 
 @bot.event

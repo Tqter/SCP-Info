@@ -1,5 +1,8 @@
 import sqlite3
 import builtins
+import discord
+from discord.ext import commands
+from builtins import bot
 
 db = sqlite3.connect("database.db")
 db.execute("""
@@ -12,6 +15,7 @@ builtins.db = db
 
 developers = {704052817760878592: "Tqter",
               337619230583291904: "Keagan"}
+embed_color = discord.Colour(0x992d22)
 
 
 def get_prefix(guild_id):

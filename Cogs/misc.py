@@ -103,3 +103,8 @@ class Misc(commands.Cog):
         )
 
         await ctx.send(embed=embed_privacy)
+
+    @commands.command(aliases=["fix"])
+    async def prefix(self, ctx):
+        author = ctx.message.author
+        await ctx.send(f"My prefix for this Server is `{get_prefix(ctx.guild.id)}`!")

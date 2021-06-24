@@ -66,4 +66,5 @@ def get_scp(scp_number: str, language):
         x = strike_outs(x)
         parsed.append(x)
     parsed = ("\n".join(parsed)).split("&#171;")
+    parsed = ("\n".join(parsed)).split("&#187;")
     return "\n".join(parsed)
