@@ -51,7 +51,7 @@ class Foundation(commands.Cog):
                         colour=discord.Colour(0x992d22))
                 else:
                     embed_scp = discord.Embed(
-                        title=f'SCP-{scp_number}', description=text_lists[x],
+                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}", description=text_lists[x],
                         colour=discord.Colour(0x992d22))
 
                 embed_list.append(embed_scp)

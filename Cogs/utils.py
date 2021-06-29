@@ -19,7 +19,8 @@ embed_color = discord.Colour(0x992d22)
 
 
 def get_prefix(guild_id):
-    data = db.execute("select prefix from guilds where GuildId = ?", (guild_id,)).fetchone()
+    data = db.execute(
+        "select prefix from guilds where GuildId = ?", (guild_id,)).fetchone()
     if data is None:
         db.execute("insert into guilds (GuildID) values (?)", (guild_id,))
         db.commit()

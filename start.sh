@@ -3,6 +3,6 @@
 TIMEOUT="5s"
 
 while : ; do
-  python main.py
+  python3 bot.py
   echo "Restarting in $TIMEOUT"
 done
