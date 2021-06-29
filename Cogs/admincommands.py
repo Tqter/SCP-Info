@@ -31,7 +31,7 @@ class Administrator(commands.Cog, command_attrs=dict(hidden=True)):
             )
 
             embed_restart.set_footer(
-                text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
+                text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar.url
             )
 
             await ctx.message.add_reaction('✅')

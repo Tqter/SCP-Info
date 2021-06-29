@@ -30,7 +30,7 @@ class Beta(commands.Cog):
                     url=images["data"]['children'][random.randint(0, 25)]['data']['url'])
 
                 embed_reddit.set_footer(
-                    text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
+                    text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar.url
                 )
 
                 await ctx.send(embed=embed_reddit)

@@ -194,7 +194,7 @@ class Foundation(commands.Cog):
         )
 
         embed_classes.set_footer(
-            text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
+            text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar.url
         )
 
         embed_classes.set_image(url="https://i.redd.it/qpx6kphvs7o41.png")

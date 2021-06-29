@@ -62,9 +62,9 @@ class Help(commands.Cog):
         embed.set_footer(
             text=f"Run 'help (category_name) for more info")
         embed.set_author(name="SCP Info - Help",
-                         icon_url=bot.user.avatar_url)
+                         icon_url=bot.user.avatar.url)
         embed.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
 
         misc_desc = "<:info:833058122213883905> `info` - Information about SCP Info\n<:code:830641334145777685> `code` - Link to SCP Info's GitHub repository\n:lock: `privacy` - Link to the privacy policy\n<a:countup:830789232431202336> `servercount` - Current number of servers SCP Info is in\n:exclamation: `prefix` - View your server's Prefix!\n:timer: `uptime` - Time since last restart\n<:website:833430346632658974> `website` - Official SCP Info website\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
@@ -74,9 +74,9 @@ class Help(commands.Cog):
         embed_misc.set_footer(
             text=f"Run 'help (command_name) for more info")
         embed_misc.set_author(name="SCP Info - Help",
-                              icon_url=bot.user.avatar_url)
+                              icon_url=bot.user.avatar.url)
         embed_misc.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
         foundation_desc = "`O5` - Information about an O5 council member\n`classification` - Basic classification information\n`contain` - Attempt to contain a fellow user!\n`SCP` - Read the article of the SCP of your choosing\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed_foundation = discord.Embed(
@@ -85,9 +85,9 @@ class Help(commands.Cog):
         embed_foundation.set_footer(
             text=f"Run 'help (command_name) for more info")
         embed_foundation.set_author(name="SCP Info - Help",
-                                    icon_url=bot.user.avatar_url)
+                                    icon_url=bot.user.avatar.url)
         embed_foundation.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
         settings_desc = ":pencil: `settings` - View SCP Info's Settings Menu\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed_settings = discord.Embed(title=":gear: Settings",
@@ -96,9 +96,9 @@ class Help(commands.Cog):
         embed_settings.set_footer(
             text=f"Run 'help (command_name) for more info")
         embed_settings.set_author(name="SCP Info - Help",
-                                  icon_url=bot.user.avatar_url)
+                                  icon_url=bot.user.avatar.url)
         embed_settings.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
 
         message = await ctx.send(embed=embed)
@@ -140,9 +140,9 @@ class Help(commands.Cog):
         embed.set_footer(
             text=f"Run 'help (command_name) for more info")
         embed.set_author(name="SCP Info - Help",
-                         icon_url=bot.user.avatar_url)
+                         icon_url=bot.user.avatar.url)
         embed.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
         await ctx.send(embed=embed)
 
@@ -156,9 +156,9 @@ class Help(commands.Cog):
         embed.set_footer(
             text=f"Run 'help (command_name) for more info")
         embed.set_author(name="SCP Info - Help",
-                         icon_url=bot.user.avatar_url)
+                         icon_url=bot.user.avatar.url)
         embed.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
         await ctx.send(embed=embed)
 
@@ -172,8 +172,8 @@ class Help(commands.Cog):
         embed.set_footer(
             text=f"Run 'help (command_name) for more info")
         embed.set_author(name="SCP Info - Help",
-                         icon_url=bot.user.avatar_url)
+                         icon_url=bot.user.avatar.url)
         embed.set_thumbnail(
-            url=ctx.guild.icon_url
+            url=ctx.guild.icon.url
         )
         await ctx.send(embed=embed)
