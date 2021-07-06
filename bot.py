@@ -35,10 +35,11 @@ intents.messages = True
 bot = MyBot(command_prefix="'", intents=intents, case_insensitive=True)
 builtins.bot = bot
 
-# Import other Cog utils and set global variables
+# Import other Cog utils
 import Cogs.misc as misc
 from Utils.utils import get_prefix, generate_table
 
+# Set global variables
 bot.launch_time = time.time()
 
 embed_color = discord.Colour(0x992d22)
