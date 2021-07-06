@@ -1,7 +1,7 @@
 import datetime
 import time
 from builtins import bot
-from Cogs.utils import get_prefix
+from Utils.utils import get_prefix
 import discord
 from discord.ext import commands
 

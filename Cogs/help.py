@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import Cogs.utils as utils
+import Utils.utils as utils
 import datetime
 from builtins import bot
 

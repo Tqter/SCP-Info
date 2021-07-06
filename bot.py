@@ -37,7 +37,7 @@ builtins.bot = bot
 
 # Import other Cog utils and set global variables
 import Cogs.misc as misc
-from Cogs.utils import get_prefix, generate_table
+from Utils.utils import get_prefix, generate_table
 
 bot.launch_time = time.time()
 

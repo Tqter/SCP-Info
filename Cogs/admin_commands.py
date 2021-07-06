@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from Cogs.utils import developers
+from Utils.utils import developers
 from builtins import bot, db
 import datetime
 
