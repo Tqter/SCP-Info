@@ -3,7 +3,7 @@ from Cogs import languages
 import discord
 import datetime
 import random
-from Cogs import council_members
+from Cogs import council
 from discord.ext import commands
 from builtins import bot
 
@@ -37,9 +37,9 @@ class Foundation(commands.Cog):
             scp_len = len(x)
             scp_count = 0
             while scp_count < scp_len:
-                scp_string = x[scp_count:scp_count + 2024]
+                scp_string = x[scp_count:scp_count + 4053]
                 text_lists.append(scp_string)
-                scp_count += 2024
+                scp_count += 4053
 
             embed_list = []
             for x in range(0, len(text_lists)):
@@ -51,7 +51,7 @@ class Foundation(commands.Cog):
                         colour=discord.Colour(0x992d22))
                 else:
                     embed_scp = discord.Embed(
-                        title=f'SCP-{scp_number}', description=text_lists[x],
+                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}", description=text_lists[x],
                         colour=discord.Colour(0x992d22))
 
                 embed_list.append(embed_scp)
@@ -88,14 +88,14 @@ class Foundation(commands.Cog):
                 await message.edit(embed=embed_list[place])
                 await message.remove_reaction(emoji="🔄", member=ctx.author)
 
-    @scp.error
-    async def scp_error(self, ctx, error):
-        print(error)
-        embed_scp_error = discord.Embed(
-            title=':octagonal_sign:Oops!',
-            description='You might have missed an argument or put an invalid number in! Try `\'scp {001 - 5999}`',
-            colour=discord.Colour(0x992d22))
-        await ctx.send(embed=embed_scp_error)
+    # @scp.error
+    # async def scp_error(self, ctx, error):
+    #     print(error)
+    #     embed_scp_error = discord.Embed(
+    #         title=':octagonal_sign:Oops!',
+    #         description='You might have missed an argument or put an invalid number in! Try `\'scp {001 - 5999}`',
+    #         colour=discord.Colour(0x992d22))
+    #     await ctx.send(embed=embed_scp_error)
 
     @commands.command(help="`Contain` your friends and play some pranks on them!", usage="contain <@user>")
     async def contain(self, ctx, user: discord.Member):
@@ -167,9 +167,9 @@ class Foundation(commands.Cog):
                       help="View info on the Specified O5 Council Member.", usage="O5 <1-13>")
     async def council(self, ctx, council_member: int):
         embed_council = discord.Embed(
-            title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
+            title=f'O5-{council_member}: "{(council.council_nickname[council_member])}"',
             description=(
-                council_members.council_members[
+                council.council_members[
                     council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
             colour=embed_color
         )

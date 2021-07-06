@@ -18,6 +18,16 @@ developers = {704052817760878592: "Tqter",
 embed_color = discord.Colour(0x992d22)
 
 
+async def generate_table():
+    db.execute("drop table if exists guilds")
+    db.execute("""
+    CREATE TABLE guilds (
+        GuildID integer PRIMARY KEY,
+        Prefix text DEFAULT "\'",
+        Language text DEFAULT "english"
+    );""")
+    db.commit()
+
 def get_prefix(guild_id):
     data = db.execute("select prefix from guilds where GuildId = ?", (guild_id,)).fetchone()
     if data is None:
