@@ -39,7 +39,7 @@ builtins.bot = bot
 import Cogs.misc as misc
 from Utils.utils import get_prefix, generate_table
 
-# Set global variables
+# Set global Variables
 bot.launch_time = time.time()
 
 embed_color = discord.Colour(0x992d22)
