@@ -52,7 +52,7 @@ access_denied.set_footer(
     text=f'Access Denied | Administrator Permission Required'
 )
 
-# Looks for and handles custom prefixes
+# Look for and handles custom prefixes
 @bot.event
 async def on_message(message):
     ctx = await bot.get_context(message)
