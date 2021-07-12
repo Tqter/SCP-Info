@@ -1,11 +1,10 @@
 import datetime
 import time
 from builtins import bot
-from Utils.utils import get_prefix
+import Utils.utils as utils
 import discord
 from discord.ext import commands
 
-embed_color = discord.Colour(0x992d22)
 
 
 class Misc(commands.Cog):
@@ -18,7 +17,7 @@ class Misc(commands.Cog):
         embed_invite = discord.Embed(
             title='<:invite:830789505212612629> Invite me to Your Server!',
             description='Click [here](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) to invite me to your server!',
-            colour=discord.Colour(0x992d22)
+            colour=utils.embed_color
         )
 
         await ctx.send(embed=embed_invite)
@@ -29,7 +28,7 @@ class Misc(commands.Cog):
         embed_updates = discord.Embed(
             title="<:ticket:833056259409969252> Support",
             description=f"Do you need help or have suggestions/bugs? Well then join the [Support Server](https://discord.gg/DaWMTsXUYZ).",
-            colour=discord.Colour(0x992d22)
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_updates)
 
@@ -37,7 +36,7 @@ class Misc(commands.Cog):
     async def code(self, ctx):
         embed_code = discord.Embed(
             title="<:code:830641334145777685> Code", description='View my Source Code! [GitHub](https://github.com/Tqter/SCP-Info)',
-            colour=discord.Colour(0x992d22)
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_code)
 
@@ -46,7 +45,7 @@ class Misc(commands.Cog):
         embed_vote = discord.Embed(
             title='<a:upvote:833057127098220544> Support SCP Info!',
             description='Click [here](https://scpinfo.xyz/vote) to vote for SCP Info!',
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_vote)
 
@@ -68,7 +67,7 @@ class Misc(commands.Cog):
         text = str(datetime.timedelta(seconds=difference))
         embed = discord.Embed(title=":timer: Uptime",
                               description=text,
-                              colour=embed_color,
+                              colour=utils.embed_color,
                               timestamp=datetime.datetime.now(
                                   datetime.timezone.utc)
                               )
@@ -83,7 +82,7 @@ class Misc(commands.Cog):
         embed_info = discord.Embed(
             title="<:info:833058122213883905> About Me",
             description="Hi, i'm SCP info 👋! I was created as a fun little tool for the SCP Community. I can give info on SCPs, council members, and users! I also have many commands; view them all by running `'help`.",
-            colour=embed_color
+            colour=utils.embed_color
         )
 
         await ctx.send(embed=embed_info)
@@ -99,7 +98,7 @@ class Misc(commands.Cog):
         embed_privacy = discord.Embed(
             title=":white_check_mark: Privacy",
             description="As of now, SCP Info does not collect ANY user information. If in the future we do and you run into a problem, please contact us at `scpinfoteam@gmail.com`. \n\nFor more information on our **websites** `Privacy` and `Terms of Service`, visit [Our Site](https://scpinfo.xyz/privacy)",
-            colour=embed_color
+            colour=utils.embed_color
         )
 
         await ctx.send(embed=embed_privacy)
@@ -107,4 +106,4 @@ class Misc(commands.Cog):
     @commands.command(aliases=["fix"])
     async def prefix(self, ctx):
         author = ctx.message.author
-        await ctx.send(f"My prefix for this Server is `{get_prefix(ctx.guild.id)}`!")
+        await ctx.send(f"My prefix for this Server is `{utils.get_prefix(ctx.guild.id)}`!")

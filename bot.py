@@ -11,7 +11,6 @@ import builtins
 import dbl
 
 db = sqlite3.connect("database.db")
-
 builtins.db = db
 
 
@@ -41,16 +40,6 @@ from Utils.utils import get_prefix, generate_table
 
 # Set global Variables
 bot.launch_time = time.time()
-
-embed_color = discord.Colour(0x992d22)
-
-access_denied = discord.Embed(
-    title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!",
-    colour=discord.Colour(0x992d22)
-)
-access_denied.set_footer(
-    text=f'Access Denied | Administrator Permission Required'
-)
 
 # Look for and handles custom prefixes
 @bot.event
@@ -82,12 +71,6 @@ async def ch_pr():
 
 bot.loop.create_task(ch_pr())
 
-# Generates Language and Prefix tables
-
-# @bot.command()
-# async def gen(ctx):
-#     await generate_table()
-#     await ctx.send("Generated")
 
 # Importing and loading Cogs
 from Cogs import scp

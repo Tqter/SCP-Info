@@ -4,9 +4,7 @@ import time
 import Cogs.languages as languages
 from discord.ext import commands
 from builtins import bot, db
-from Utils.utils import get_prefix
-
-embed_color = discord.Colour(0x992d22)
+import Utils.utils as utils
 
 
 class Settings(commands.Cog):
@@ -18,20 +16,20 @@ class Settings(commands.Cog):
     async def settings(self, ctx):
         embed_settings = discord.Embed(
             title="SCP Info | Settings",
-            description=f"Settings for SCP Info!\n\n React with :pencil: to edit the `Prefix` for this Server!\n\n React with :speaker: to change the `Language` of the `{get_prefix(ctx.guild.id)}scp` command for this Server!",
-            colour=embed_color
+            description=f"Settings for SCP Info!\n\n React with :pencil: to edit the `Prefix` for this Server!\n\n React with :speaker: to change the `Language` of the `{utils.get_prefix(ctx.guild.id)}scp` command for this Server!",
+            colour=utils.embed_color
         )
 
         embed_prefix = discord.Embed(
             title="Settings | Prefix",
-            description=f"Settings to change SCP Info's Prefix!\n\n :pencil:**Change Prefix**: `{get_prefix(ctx.guild.id)}settings prefix <new_prefix>`\n\n *:information_source:Make sure your new Prefix is no longer than `5` characters! (e.g., `^`)*",
-            colour=embed_color
+            description=f"Settings to change SCP Info's Prefix!\n\n :pencil:**Change Prefix**: `{utils.get_prefix(ctx.guild.id)}settings prefix <new_prefix>`\n\n *:information_source:Make sure your new Prefix is no longer than `5` characters! (e.g., `^`)*",
+            colour=utils.embed_color
         )
 
         embed_language = discord.Embed(
             title="Settings | Language",
-            description=f"Settings to change the Language of the `{get_prefix(ctx.guild.id)}scp` command!\n\n :pencil:**Change Language**: `{get_prefix(ctx.guild.id)}settings language <new_language>`\n\n **:information_source:Valid Languages**:\n `English`\n `French`\n `Spanish`\n `Korean`\n `Russian`\n `Chinese`\n `Japanese`\n `German`",
-            colour=embed_color
+            description=f"Settings to change the Language of the `{utils.get_prefix(ctx.guild.id)}scp` command!\n\n :pencil:**Change Language**: `{utils.get_prefix(ctx.guild.id)}settings language <new_language>`\n\n **:information_source:Valid Languages**:\n `English`\n `French`\n `Spanish`\n `Korean`\n `Russian`\n `Chinese`\n `Japanese`\n `German`",
+            colour=utils.embed_color
         )
 
         message = await ctx.send(embed=embed_settings)
@@ -64,7 +62,7 @@ class Settings(commands.Cog):
         embed_error_too_long = discord.Embed(
             title=":octagonal_sign:Whoops!",
             description="Your prefix can't be more than `5` Characters long!",
-            colour=embed_color
+            colour=utils.embed_color
         )
 
         if len(new_prefix) >= 5:
@@ -83,7 +81,7 @@ class Settings(commands.Cog):
             embed_error = discord.Embed(
                 title=":octagonal_sign:Whoops!",
                 description="Looks like we don't support that language yet...",
-                colour=embed_color
+                colour=utils.embed_color
             )
             await ctx.send(embed=embed_error)
             return
@@ -98,7 +96,7 @@ class Settings(commands.Cog):
         embed_error = discord.Embed(
             title=":octagonal_sign:Whoops!",
             description="Looks like you don't have permission! Make sure you have the `manage_guild` permission!",
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_error)
 
@@ -107,6 +105,6 @@ class Settings(commands.Cog):
         embed_error = discord.Embed(
             title=":octagonal_sign:Whoops!",
             description="Looks like you don't have permission! Make sure you have the `manage_guild` permission!",
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_error)

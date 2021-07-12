@@ -3,11 +3,10 @@ from Cogs import languages
 import discord
 import datetime
 import random
+import Utils.utils as utils
 from Cogs import council
 from discord.ext import commands
 from builtins import bot
-
-embed_color = discord.Colour(0x992d22)
 
 
 class Foundation(commands.Cog):
@@ -88,14 +87,14 @@ class Foundation(commands.Cog):
                 await message.edit(embed=embed_list[place])
                 await message.remove_reaction(emoji="🔄", member=ctx.author)
 
-    # @scp.error
-    # async def scp_error(self, ctx, error):
-    #     print(error)
-    #     embed_scp_error = discord.Embed(
-    #         title=':octagonal_sign:Oops!',
-    #         description='You might have missed an argument or put an invalid number in! Try `\'scp {001 - 5999}`',
-    #         colour=discord.Colour(0x992d22))
-    #     await ctx.send(embed=embed_scp_error)
+    @scp.error
+    async def scp_error(self, ctx, error):
+        print(error)
+        embed_scp_error = discord.Embed(
+            title=':octagonal_sign:Oops!',
+            description='You might have missed an argument or put an invalid number in! Try `\'scp {001 - 5999}`',
+            colour=discord.Colour(0x992d22))
+        await ctx.send(embed=embed_scp_error)
 
     @commands.command(help="`Contain` your friends and play some pranks on them!", usage="contain <@user>")
     async def contain(self, ctx, user: discord.Member):
@@ -108,50 +107,16 @@ class Foundation(commands.Cog):
             f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
             f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
             f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
             f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
             f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-        ]
+            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.'
+            ]
 
-        await ctx.send(random.choice(contain_list))
+        if ctx.message.author == user:
+            await ctx.send("You contained yourself, nice job.")
+
+        else:
+            await ctx.send(random.choice(contain_list))
 
     @contain.error
     async def contain_error(self, ctx, error):
@@ -159,7 +124,7 @@ class Foundation(commands.Cog):
                                             description="""
                                             Make sure you enter a valid user! Check that you spell their name correctly! (Case Sensitive)
                                             """,
-                                            colour=embed_color
+                                            colour=utils.embed_color
                                             )
         await ctx.send(embed=embed_contain_error)
 
@@ -171,7 +136,7 @@ class Foundation(commands.Cog):
             description=(
                 council.council_members[
                     council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_council)
 
@@ -189,7 +154,7 @@ class Foundation(commands.Cog):
         author = ctx.message.author
         embed_classes = discord.Embed(
             title="SCP Classification",
-            colour=embed_color,
+            colour=utils.embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
 

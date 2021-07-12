@@ -3,9 +3,9 @@ import datetime
 import aiohttp
 import random
 from discord.ext import commands
+import Utils.utils as utils
 from builtins import bot
 
-embed_color = discord.Colour(0x992d22)
 
 
 class Beta(commands.Cog):
@@ -22,7 +22,7 @@ class Beta(commands.Cog):
 
                 embed_reddit = discord.Embed(
                     title="Random SCP Image | BETA",
-                    color=embed_color,
+                    color=utils.embed_color,
                     timestamp=datetime.datetime.now(datetime.timezone.utc)
                 )
 
