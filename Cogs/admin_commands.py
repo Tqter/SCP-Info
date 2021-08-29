@@ -1,24 +1,14 @@
 import discord
 from discord.ext import commands
-from Cogs.utils import developers
-from builtins import bot, db
+from Utils.utils import *
+from builtins import bot
 import datetime
-
-
-embed_color = discord.Colour(0x992d22)
-
-
-access_denied = discord.Embed(
-    title=':octagonal_sign:Uh Oh!', description=f"Looks like you don\'t have permission!", colour=discord.Colour(0x992d22)
-)
-access_denied.set_footer(
-    text=f'Access Denied | Administrator Permission Required'
-)
 
 
 class Administrator(commands.Cog, command_attrs=dict(hidden=True)):
     def __init__(self):
         self.bot = bot
+            
 
     @commands.command(aliases=['r'])
     async def restart(self, ctx):
@@ -40,5 +30,19 @@ class Administrator(commands.Cog, command_attrs=dict(hidden=True)):
 
     @restart.error
     async def restart_error(self, ctx, error):
-        await ctx.send(embed=access_denied)
+        await ctx.send(embed=admin_access_denied)
         await ctx.message.add_reaction("🚫")
+
+    @commands.command()
+    async def gen(self, ctx):
+        for developer in developers[ctx.author.id]:
+            await generate_place_table()
+            # await generate_table()
+            await ctx.send("Both tables Successfully Generated")
+
+    @gen.error
+    async def gen_error(self, ctx, error):
+        await ctx.send(embed=admin_access_denied)
+        await ctx.message.add_reaction("🚫")
+    
+        

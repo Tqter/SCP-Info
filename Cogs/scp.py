@@ -3,11 +3,10 @@ from Cogs import languages
 import discord
 import datetime
 import random
-from Cogs import council_members
+import Utils.utils as utils
+from Cogs import council
 from discord.ext import commands
 from builtins import bot
-
-embed_color = discord.Colour(0x992d22)
 
 
 class Foundation(commands.Cog):
@@ -20,7 +19,7 @@ class Foundation(commands.Cog):
             if isinstance(ctx.channel, discord.DMChannel):
                 language = "english"
             else:
-                language = languages.get_language(ctx.guild.id)
+                language = await languages.get_language(ctx.guild.id)
 
             scp_int = int(scp_number)
 
@@ -37,21 +36,21 @@ class Foundation(commands.Cog):
             scp_len = len(x)
             scp_count = 0
             while scp_count < scp_len:
-                scp_string = x[scp_count:scp_count + 2024]
+                scp_string = x[scp_count:scp_count + 2031]
                 text_lists.append(scp_string)
-                scp_count += 2024
+                scp_count += 2031
 
             embed_list = []
             for x in range(0, len(text_lists)):
                 embed_scp = None
                 if x != len(text_lists) - 1:
                     embed_scp = discord.Embed(
-                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}",
+                        title=f'SCP-{scp_number}', url=fr"{utils.langauge_to_website[language]}scp-{scp_number}",
                         description=text_lists[x] + '... **Read More**',
                         colour=discord.Colour(0x992d22))
                 else:
                     embed_scp = discord.Embed(
-                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}", description=text_lists[x],
+                        title=f'SCP-{scp_number}', url=fr"{utils.langauge_to_website[language]}scp-{scp_number}", description=text_lists[x],
                         colour=discord.Colour(0x992d22))
 
                 embed_list.append(embed_scp)
@@ -108,50 +107,16 @@ class Foundation(commands.Cog):
             f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
             f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
             f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
             f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
             f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **P90**.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} was ripped to shreds by <@{id_contain}> in an attempt to contain them.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Micro-HID**.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.',
-            f'{author.mention} died to puncture wounds while trying to contain <@{id_contain}>.',
-            f'{author.mention} got their neck snapped while trying to contain <@{id_contain}>.',
-            f'{author.mention} contained <@{id_contain}>, termination cause **SCP-018.**',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-            f'{author.mention} was sent to another dimension in an attempt to contain <@{id_contain}>.',
-            f'{author.mention} died to automatic security while running from <@{id_contain}>.',
-        ]
+            f'{author.mention} contained <@{id_contain}>, termination cause **Frag Grenade**.'
+            ]
 
-        await ctx.send(random.choice(contain_list))
+        if ctx.message.author == user:
+            await ctx.send("You contained yourself, nice job.")
+
+        else:
+            await ctx.send(random.choice(contain_list))
 
     @contain.error
     async def contain_error(self, ctx, error):
@@ -159,7 +124,7 @@ class Foundation(commands.Cog):
                                             description="""
                                             Make sure you enter a valid user! Check that you spell their name correctly! (Case Sensitive)
                                             """,
-                                            colour=embed_color
+                                            colour=utils.embed_color
                                             )
         await ctx.send(embed=embed_contain_error)
 
@@ -167,11 +132,11 @@ class Foundation(commands.Cog):
                       help="View info on the Specified O5 Council Member.", usage="O5 <1-13>")
     async def council(self, ctx, council_member: int):
         embed_council = discord.Embed(
-            title=f'O5-{council_member}: "{(council_members.council_nickname[council_member])}"',
+            title=f'O5-{council_member}: "{(council.council_nickname[council_member])}"',
             description=(
-                council_members.council_members[
+                council.council_members[
                     council_member]) + "\n\n **View other contradictory reports at**: [The SCP Wiki](http://www.scpwiki.com/o5-command-dossier)",
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_council)
 
@@ -189,7 +154,7 @@ class Foundation(commands.Cog):
         author = ctx.message.author
         embed_classes = discord.Embed(
             title="SCP Classification",
-            colour=embed_color,
+            colour=utils.embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
 

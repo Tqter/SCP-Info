@@ -1,19 +1,8 @@
 import discord
+import aiosqlite
 from discord.ext import commands
-from builtins import bot, db
-
-embed_color = discord.Colour(0x992d22)
-
-langauge_to_website = {
-    "english": "http://scpwiki.com/",
-    "russian": "http://scp-ru.wikidot.com/",
-    "korean": "http://ko.scp-wiki.net",
-    "chinese": "http://scp-wiki-cn.wikidot.com/",
-    "french": "http://fondationscp.wikidot.com/",
-    "spanish": "http://lafundacionscp.wikidot.com/",
-    "japanese": "http://scp-jp.wikidot.com/",
-    "german": "http://scp-wiki-de.wikidot.com/"
-}
+import Utils.utils as utils
+from builtins import bot
 
 
 class Languages(commands.Cog, command_attrs=dict(hidden=True)):
@@ -21,9 +10,16 @@ class Languages(commands.Cog, command_attrs=dict(hidden=True)):
         self.bot = bot
 
 
-def get_language(guild_id):
-    return db.execute("select Language from guilds where GuildID = ?", (guild_id,)).fetchone()[0]
+async def get_language(guild_id):
+    db = await aiosqlite.connect("database.db")
+    cursor = await db.cursor()
 
+    await cursor.execute("select Language from guilds where GuildID = ?", (guild_id,))
+    
+    data = await cursor.fetchone()
+    await cursor.close()
+
+    return data[0]
 
 def get_site(guild_id):
-    return langauge_to_website[get_language(guild_id)]
+    return utils.langauge_to_website[get_language(guild_id)]

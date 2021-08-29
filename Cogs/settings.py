@@ -1,12 +1,11 @@
 import discord
 import datetime
 import time
+import aiosqlite
 import Cogs.languages as languages
 from discord.ext import commands
-from builtins import bot, db
-from Cogs.utils import get_prefix
-
-embed_color = discord.Colour(0x992d22)
+from builtins import bot
+import Utils.utils as utils
 
 
 class Settings(commands.Cog):
@@ -18,20 +17,20 @@ class Settings(commands.Cog):
     async def settings(self, ctx):
         embed_settings = discord.Embed(
             title="SCP Info | Settings",
-            description=f"Settings for SCP Info!\n\n React with :pencil: to edit the `Prefix` for this Server!\n\n React with :speaker: to change the `Language` of the `{get_prefix(ctx.guild.id)}scp` command for this Server!",
-            colour=embed_color
+            description=f"Settings for SCP Info!\n\n React with :pencil: to edit the `Prefix` for this Server!\n\n React with :speaker: to change the `Language` of the `{await utils.get_prefix(ctx.guild.id)}scp` command for this Server!",
+            colour=utils.embed_color
         )
 
         embed_prefix = discord.Embed(
             title="Settings | Prefix",
-            description=f"Settings to change SCP Info's Prefix!\n\n :pencil:**Change Prefix**: `{get_prefix(ctx.guild.id)}settings prefix <new_prefix>`\n\n *:information_source:Make sure your new Prefix is no longer than `5` characters! (e.g., `^`)*",
-            colour=embed_color
+            description=f"Settings to change SCP Info's Prefix!\n\n :pencil:**Change Prefix**: `{await utils.get_prefix(ctx.guild.id)}settings prefix <new_prefix>`\n\n *:information_source:Make sure your new Prefix is no longer than `5` characters! (e.g., `^`)*",
+            colour=utils.embed_color
         )
 
         embed_language = discord.Embed(
             title="Settings | Language",
-            description=f"Settings to change the Language of the `{get_prefix(ctx.guild.id)}scp` command!\n\n :pencil:**Change Language**: `{get_prefix(ctx.guild.id)}settings language <new_language>`\n\n **:information_source:Valid Languages**:\n `English`\n `French`\n `Spanish`\n `Korean`\n `Russian`\n `Chinese`\n `Japanese`\n `German`",
-            colour=embed_color
+            description=f"Settings to change the Language of the `{await utils.get_prefix(ctx.guild.id)}scp` command!\n\n :pencil:**Change Language**: `{await utils.get_prefix(ctx.guild.id)}settings language <new_language>`\n\n **:information_source:Valid Languages**:\n `English`\n `French`\n `Spanish`\n `Russian`\n `Chinese`\n `Japanese`\n `German`",
+            colour=utils.embed_color
         )
 
         message = await ctx.send(embed=embed_settings)
@@ -64,41 +63,43 @@ class Settings(commands.Cog):
         embed_error_too_long = discord.Embed(
             title=":octagonal_sign:Whoops!",
             description="Your prefix can't be more than `5` Characters long!",
-            colour=embed_color
+            colour=utils.embed_color
         )
 
         if len(new_prefix) >= 5:
             await ctx.send(embed=embed_error_too_long)
 
         else:
-            db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", (new_prefix, ctx.guild.id))
-            db.commit()
-            await ctx.send(f"Set prefix to `{new_prefix}`!")
+            async with aiosqlite.connect("database.db") as db:
+                await db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", (new_prefix, ctx.guild.id))
+                await db.commit()
+                await ctx.send(f"Set prefix to `{new_prefix}`!")
 
     @settings.command(pass_context=True, help="Change the Language of the SCP command for your Server!",
                       usage="settings language <New Language>")
     @commands.has_permissions(manage_guild=True)
     async def language(self, ctx, new_language: str):
-        if new_language not in languages.langauge_to_website.keys():
+        if new_language not in utils.langauge_to_website.keys():
             embed_error = discord.Embed(
                 title=":octagonal_sign:Whoops!",
                 description="Looks like we don't support that language yet...",
-                colour=embed_color
+                colour=utils.embed_color
             )
             await ctx.send(embed=embed_error)
             return
 
         else:
-            db.execute("UPDATE guilds SET Language = ? WHERE GuildID = ?", (new_language, ctx.guild.id))
-            db.commit()
-            await ctx.send(f"Set language to `{new_language}`!")
+            async with aiosqlite.connect("database.db") as db:
+                await db.execute("UPDATE guilds SET Language = ? WHERE GuildID = ?", (new_language, ctx.guild.id))
+                await db.commit()
+                await ctx.send(f"Set language to `{new_language}`!")
 
     @settings.error
     async def change_prefix_error(self, ctx, error):
         embed_error = discord.Embed(
             title=":octagonal_sign:Whoops!",
             description="Looks like you don't have permission! Make sure you have the `manage_guild` permission!",
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_error)
 
@@ -107,6 +108,6 @@ class Settings(commands.Cog):
         embed_error = discord.Embed(
             title=":octagonal_sign:Whoops!",
             description="Looks like you don't have permission! Make sure you have the `manage_guild` permission!",
-            colour=embed_color
+            colour=utils.embed_color
         )
         await ctx.send(embed=embed_error)
