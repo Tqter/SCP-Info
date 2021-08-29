@@ -12,8 +12,8 @@ class Beta(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["image"], usage="image")
-    async def images(self, ctx):
+    @commands.command(help="Grabs top images from [r/SCP](https://www.reddit.com/r/SCP/).", aliases=["images"], usage="image")
+    async def image(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://www.reddit.com/r/SCP.json") as r:
                 images = await r.json()
@@ -30,7 +30,7 @@ class Beta(commands.Cog):
                     url=images["data"]['children'][random.randint(0, 25)]['data']['url'])
 
                 embed_reddit.set_footer(
-                    text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar.url
+                    text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
                 )
 
                 await ctx.send(embed=embed_reddit)

@@ -1,5 +1,6 @@
 from urllib import request, response
 import Cogs.languages as languages
+import Utils.utils as utils
 import re
 
 
@@ -51,7 +52,7 @@ def strike_outs(html: str):
 
 
 def get_scp(scp_number: str, language):
-    url = fr"{languages.langauge_to_website[language]}scp-{scp_number}"
+    url = fr"{utils.langauge_to_website[language]}scp-{scp_number}"
 
     req = request.urlopen(url)
     data = re.findall(r"<p>(.*?)</p>", req.read().decode("utf-8"))
@@ -61,7 +62,7 @@ def get_scp(scp_number: str, language):
 
     parsed = []
     for paragraph in range(0, len(data)):
-        x = filter_links(data[paragraph], languages.langauge_to_website[language])
+        x = filter_links(data[paragraph], utils.langauge_to_website[language])
         x = filter_tags(x)
         x = strike_outs(x)
         parsed.append(x)

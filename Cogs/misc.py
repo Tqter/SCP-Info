@@ -1,15 +1,26 @@
 import datetime
 import time
-from builtins import bot
+from builtins import bot, slash
 import Utils.utils as utils
 import discord
 from discord.ext import commands
+from dislash import slash_commands
+from dislash.interactions import *
 
 
 
 class Misc(commands.Cog):
     def __init__(self):
         self.bot = bot
+
+    @slash.command(
+    name="hello",
+    description="Says hello",
+    guild_ids=[826928208854777866] 
+    )
+    async def test(self, inter):
+        await inter.reply("Hello!")
+
 
     @commands.command(aliases=['i'], help="Invite me to Your Server!", usage="invite")
     async def invite(self, ctx):
@@ -106,4 +117,4 @@ class Misc(commands.Cog):
     @commands.command(aliases=["fix"])
     async def prefix(self, ctx):
         author = ctx.message.author
-        await ctx.send(f"My prefix for this Server is `{utils.get_prefix(ctx.guild.id)}`!")
+        await ctx.send(f"My prefix for this Server is `{await utils.get_prefix(ctx.guild.id)}`!")

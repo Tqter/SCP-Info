@@ -19,7 +19,7 @@ class Foundation(commands.Cog):
             if isinstance(ctx.channel, discord.DMChannel):
                 language = "english"
             else:
-                language = languages.get_language(ctx.guild.id)
+                language = await languages.get_language(ctx.guild.id)
 
             scp_int = int(scp_number)
 
@@ -36,21 +36,21 @@ class Foundation(commands.Cog):
             scp_len = len(x)
             scp_count = 0
             while scp_count < scp_len:
-                scp_string = x[scp_count:scp_count + 4053]
+                scp_string = x[scp_count:scp_count + 2031]
                 text_lists.append(scp_string)
-                scp_count += 4053
+                scp_count += 2031
 
             embed_list = []
             for x in range(0, len(text_lists)):
                 embed_scp = None
                 if x != len(text_lists) - 1:
                     embed_scp = discord.Embed(
-                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}",
+                        title=f'SCP-{scp_number}', url=fr"{utils.langauge_to_website[language]}scp-{scp_number}",
                         description=text_lists[x] + '... **Read More**',
                         colour=discord.Colour(0x992d22))
                 else:
                     embed_scp = discord.Embed(
-                        title=f'SCP-{scp_number}', url=fr"{languages.langauge_to_website[language]}scp-{scp_number}", description=text_lists[x],
+                        title=f'SCP-{scp_number}', url=fr"{utils.langauge_to_website[language]}scp-{scp_number}", description=text_lists[x],
                         colour=discord.Colour(0x992d22))
 
                 embed_list.append(embed_scp)
@@ -159,7 +159,7 @@ class Foundation(commands.Cog):
         )
 
         embed_classes.set_footer(
-            text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar.url
+            text=f"Command invoked by {ctx.message.author.name}", icon_url=author.avatar_url
         )
 
         embed_classes.set_image(url="https://i.redd.it/qpx6kphvs7o41.png")
