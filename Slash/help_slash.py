@@ -7,7 +7,7 @@ from builtins import bot, slash
 
 
 class Help(commands.Cog):
-    @slash.command(name="help", description="Get help with SCP Info", guild_ids=[826928208854777866])
+    @slash.command(name="help", description="Get help with SCP Info")
     async def help(self, ctx):
         help_msg = "<:scp:830789987397009468> Foundation\n\n:gear: Settings\n\n:star: Misc\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
 

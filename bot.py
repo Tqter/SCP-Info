@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 import os
 import aiosqlite
 import builtins
+from discord.utils import find
+
 
 
 class MyBot(commands.Bot):

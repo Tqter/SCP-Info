@@ -35,7 +35,7 @@ class Help(commands.Cog):
             prefix = await utils.get_prefix(ctx.guild.id)
 
         if command_name is None:
-            help_msg = f"<:scp:830789987397009468> Foundation\n\n:gear: Settings\n\n:star: Misc\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+            help_msg = f"<:scp:830789987397009468> Foundation\n\n:gear: Settings\n\n:star: Misc\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         else:
             command = await get_command(command_name)
             if command is None:
@@ -61,7 +61,7 @@ class Help(commands.Cog):
             url=ctx.guild.icon_url
         )
 
-        misc_desc = "<:info:833058122213883905> `info` - Information about SCP Info\n<:code:830641334145777685> `code` - Link to SCP Info's GitHub repository\n:lock: `privacy` - Link to the privacy policy\n<a:countup:830789232431202336> `servercount` - Current number of servers SCP Info is in\n:exclamation: `prefix` - View your server's Prefix!\n:timer: `uptime` - Time since last restart\n<:website:833430346632658974> `website` - Official SCP Info website\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+        misc_desc = "<:info:833058122213883905> `info` - Information about SCP Info\n<:code:830641334145777685> `code` - Link to SCP Info's GitHub repository\n:lock: `privacy` - Link to the privacy policy\n<a:countup:830789232431202336> `servercount` - Current number of servers SCP Info is in\n:exclamation: `prefix` - View your server's Prefix!\n:timer: `uptime` - Time since last restart\n<:website:833430346632658974> `website` - Official SCP Info website\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed_misc = discord.Embed(title=":star: Misc",
                                    description=misc_desc, color=utils.embed_color,
                                    timestamp=datetime.datetime.now(datetime.timezone.utc))
@@ -72,7 +72,7 @@ class Help(commands.Cog):
         embed_misc.set_thumbnail(
             url=ctx.guild.icon_url
         )
-        foundation_desc = "`O5` - Information about an O5 council member\n`classification` - Basic classification information\n`contain` - Attempt to contain a fellow user!\n`SCP` - Read the article of the SCP of your choosing\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+        foundation_desc = "`O5` - Information about an O5 council member\n`classification` - Basic classification information\n`contain` - Attempt to contain a fellow user!\n`SCP` - Read the article of the SCP of your choosing\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed_foundation = discord.Embed(
             title="<:scp:830789987397009468> Foundation", description=foundation_desc, color=utils.embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc))
@@ -83,7 +83,7 @@ class Help(commands.Cog):
         embed_foundation.set_thumbnail(
             url=ctx.guild.icon_url
         )
-        settings_desc = ":pencil: `settings` - View SCP Info's Settings Menu\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+        settings_desc = ":pencil: `settings` - View SCP Info's Settings Menu\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed_settings = discord.Embed(title=":gear: Settings",
                                        description=settings_desc, color=utils.embed_color,
                                        timestamp=datetime.datetime.now(datetime.timezone.utc))
@@ -127,7 +127,7 @@ class Help(commands.Cog):
     @help.command(pass_context=True, help="Displays the \"Misc\" help message",
                   usage="help misc")
     async def misc(self, ctx):
-        desc = "<:info:833058122213883905> `info` - Information about SCP Info\n<:code:830641334145777685> `code` - Link to SCP Info's GitHub repository\n:lock: `privacy` - Link to the privacy policy\n<a:countup:830789232431202336> `servercount` - Current number of servers SCP Info is in\n:exclamation: `prefix` - View your server's Prefix!\n:timer: `uptime` - Time since last restart\n<:website:833430346632658974> `website` - Official SCP Info website\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+        desc = "<:info:833058122213883905> `info` - Information about SCP Info\n<:code:830641334145777685> `code` - Link to SCP Info's GitHub repository\n:lock: `privacy` - Link to the privacy policy\n<a:countup:830789232431202336> `servercount` - Current number of servers SCP Info is in\n:exclamation: `prefix` - View your server's Prefix!\n:timer: `uptime` - Time since last restart\n<:website:833430346632658974> `website` - Official SCP Info website\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed = discord.Embed(title=":star: Misc",
                               description=desc, color=utils.embed_color,
                               timestamp=datetime.datetime.now(datetime.timezone.utc))
@@ -143,7 +143,7 @@ class Help(commands.Cog):
     @help.command(pass_context=True, aliases=["f"], help="Displays the \"Foundation\" help message",
                   usage="help foundation")
     async def foundation(self, ctx):
-        desc = "`O5` - Information about an O5 council member\n`classification` - Basic classification information\n`contain` - Attempt to contain a fellow user!\n`SCP` - Read the article of the SCP of your choosing\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+        desc = "`O5` - Information about an O5 council member\n`classification` - Basic classification information\n`contain` - Attempt to contain a fellow user!\n`SCP` - Read the article of the SCP of your choosing\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed = discord.Embed(
             title="<:scp:830789987397009468> Foundation", description=desc, color=utils.embed_color,
             timestamp=datetime.datetime.now(datetime.timezone.utc))
@@ -159,7 +159,7 @@ class Help(commands.Cog):
     @help.command(pass_context=True, aliases=["setting", "s"], help="Displays the \"Settings\" help message",
                   usage="help settings")
     async def settings(self, ctx):
-        desc = ":pencil: `settings` - View SCP Info's Settings Menu\n\n [Invite](https://discord.com/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
+        desc = ":pencil: `settings` - View SCP Info's Settings Menu\n\n [Invite](https://scpinfo.xyz/invite) | [Support](https://discord.com/invite/hTPqf53abp) | [Website](https://www.scpinfo.xyz/) | [Vote](https://scpinfo.xyz/vote) | [Privacy Policy](https://scpinfo.xyz/privacy)"
         embed = discord.Embed(title=":gear: Settings",
                               description=desc, color=utils.embed_color,
                               timestamp=datetime.datetime.now(datetime.timezone.utc))

@@ -19,7 +19,7 @@ class SCP_Slash(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @slash.command(name="scp", description="Get Info on ANY SCP of your Choice", guild_ids=[826928208854777866], options=[Option("scp_number", "Enter the SCP Number (001 - 5999)")])
+    @slash.command(name="scp", description="Get Info on ANY SCP of your Choice" , options=[Option("scp_number", "Enter the SCP Number (001 - 5999)")])
     async def scp(self, ctx, scp_number):
         if isinstance(ctx.channel, discord.DMChannel):
             language = "english"

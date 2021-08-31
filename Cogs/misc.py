@@ -13,21 +13,12 @@ class Misc(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @slash.command(
-    name="hello",
-    description="Says hello",
-    guild_ids=[826928208854777866] 
-    )
-    async def test(self, inter):
-        await inter.reply("Hello!")
-
-
     @commands.command(aliases=['i'], help="Invite me to Your Server!", usage="invite")
     async def invite(self, ctx):
         author = ctx.message.author
         embed_invite = discord.Embed(
             title='<:invite:830789505212612629> Invite me to Your Server!',
-            description='Click [here](https://discord.com/api/oauth2/authorize?client_id=818294562677588009&permissions=2553671104&scope=bot) to invite me to your server!',
+            description='Click [here](https://scpinfo.xyz/invite) to invite me to your server!',
             colour=utils.embed_color
         )
 

@@ -12,7 +12,7 @@ class Beta_Slash(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @slash.command(name="image", description="Get a Random Image from r/SCP (BETA)", guild_ids=[826928208854777866])
+    @slash.command(name="image", description="Get a Random Image from r/SCP (BETA)")
     async def image(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://www.reddit.com/r/SCP.json") as r:

@@ -14,7 +14,7 @@ class Settings_Slash(commands.Cog):
     def __init__(self):
         self.bot = bot
 
-    @slash.command(name="settings", description="View the SCP Info Settings Menu", guild_ids=[826928208854777866]) 
+    @slash.command(name="settings", description="View the SCP Info Settings Menu" ) 
     @slash_commands.has_permissions(manage_guild=True)
     async def settings(self, ctx):
         pass
