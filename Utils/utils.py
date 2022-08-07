@@ -12,7 +12,7 @@ command_emojis = {"info": "<:info:833058122213883905>", "code": "<:code:83064133
                   "website": "<website:833430346632658974>", "prefix": ":pencil:", "language": ":speaker:"}
 
 langauge_to_website = {
-    "English": "http://scpwiki.com/",
+    "English": "http://scp-wiki.wikidot.com/",
     "Russian": "http://scp-ru.wikidot.com/",
     # "Korean": "http://ko.scp-wiki.net",
     "Chinese": "http://scp-wiki-cn.wikidot.com/",

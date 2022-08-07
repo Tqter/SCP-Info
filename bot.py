@@ -24,12 +24,12 @@ class MyBot(commands.Bot):
         print("Bot is ready.")
 
     async def on_ipc_ready(self):
-	    """Called upon the IPC Server being ready"""
-	    print("Ipc server is ready.")
+        """Called upon the IPC Server being ready"""
+        print("Ipc server is ready.")
 
     async def on_ipc_error(self, endpoint, error):
-	    """Called upon an error being raised within an IPC route"""
-	    print(endpoint, "raised", error)
+        """Called upon an error being raised within an IPC route"""
+        print(endpoint, "raised", error)
 
 # Loads .env with info and passes it into a variable
 load_dotenv()

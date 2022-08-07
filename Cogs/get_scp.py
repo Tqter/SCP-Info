@@ -58,7 +58,7 @@ def get_scp(scp_number: str, language):
     data = re.findall(r"<p>(.*?)</p>", req.read().decode("utf-8"))
     req.close()
 
-    data = ("\n".join(data)).split("</iframe>")[1].split("\n")
+    data = ("\n".join(data)).split("</iframe>")[-1].split("\n")
 
     parsed = []
     for paragraph in range(0, len(data)):

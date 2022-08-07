@@ -28,7 +28,7 @@ def FilterLinks(html: str):
             link = href_data[0].replace(" href=\"", "")
             final_link = link
             if link[0] == "/":
-                final_link = f"http://www.scpwiki.com{link}"
+                final_link = f"http://www.scp-wiki.wikidot.com{link}"
             text = href_data[1].split("</a>")[0]
             full_command = f"href=\"{link}\">{text}</a>"
             links[part] = links[part].replace(
@@ -52,7 +52,7 @@ def StrikeOuts(html: str):
 
 def GetSCP(scp_number: str):
 
-    url = fr"http://www.scpwiki.com/scp-{scp_number}"
+    url = fr"http://www.scp-wiki.wikidot.com/scp-{scp_number}"
 
     req = request.urlopen(url)
     data = re.findall(r"<p>(.*?)</p>", req.read().decode("utf-8"))
